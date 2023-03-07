@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "pointing-poker-89f59": {
+      "hosting": {
+        "pointing-poker": [
+          "pointing-poker-89f59"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "pointing-poker-89f59"
+  }
+}

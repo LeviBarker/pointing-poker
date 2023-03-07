@@ -1,0 +1,11 @@
+<div style="padding: 16px; display: flex; flex-direction: column; align-items: flex-start;">
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Room Name</mat-label>
+    <input matInput [(ngModel)]="roomTitle" (keydown.enter)="createRoom()">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Card Options</mat-label>
+    <input matInput [(ngModel)]="cardOptions">
+  </mat-form-field>
+  <button style="margin-right: 8px" mat-raised-button matSuffix color="primary" (click)="createRoom()">Create</button>
+</div>
