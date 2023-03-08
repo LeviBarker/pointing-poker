@@ -1,24 +1,21 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
-  Firestore,
   collection,
-  updateDoc,
-  getDoc,
   doc,
-  query,
-  where,
+  Firestore,
+  getDoc,
   onSnapshot,
+  query,
   setDoc,
+  updateDoc,
+  where,
   writeBatch,
 } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
-import { Room } from 'src/app/models/Room';
-import { Auth, onAuthStateChanged } from '@angular/fire/auth';
-import {
-  adjectives,
-  animals,
-  uniqueNamesGenerator,
-} from 'unique-names-generator';
+import {ActivatedRoute} from '@angular/router';
+import {Room} from 'src/app/models/Room';
+import {Auth, onAuthStateChanged} from '@angular/fire/auth';
+import {adjectives, animals, uniqueNamesGenerator,} from 'unique-names-generator';
+import * as confetti from 'canvas-confetti';
 
 @Component({
   selector: 'app-room',
@@ -54,6 +51,11 @@ export class RoomComponent {
           ...doc.data(),
         } as Room;
         this.cardOptions = this.room.card_options.split(',');
+        if (this.agreement == 100 && this.room.show_cards) {
+          confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
+            resize: true,
+          })({particleCount: 200, spread: 200, });
+        }
         console.log('room data changed');
       });
       const userQuery = query(
@@ -100,7 +102,7 @@ export class RoomComponent {
           roomId,
           vote: null,
         },
-        { merge: true }
+        {merge: true}
       );
     } else {
       await setDoc(docRef, {
@@ -122,7 +124,7 @@ export class RoomComponent {
 
   async toggleShowCards(room: any) {
     const docRef = await doc(this.firestore, 'rooms', room.id);
-    await updateDoc(docRef, { show_cards: !room.show_cards });
+    await updateDoc(docRef, {show_cards: !room.show_cards});
   }
 
   async clearVotes(room: any) {
@@ -131,21 +133,21 @@ export class RoomComponent {
 
     this.users.forEach((user) => {
       const docRef = doc(this.firestore, 'users', user.id);
-      batch.update(docRef, { vote: null });
+      batch.update(docRef, {vote: null});
     });
 
-    updateDoc(roomRef, { show_cards: false });
+    updateDoc(roomRef, {show_cards: false});
     batch.commit();
   }
 
   async updateUser(user: any) {
     const docRef = await doc(this.firestore, 'users', user.id);
-    await updateDoc(docRef, user, { merge: true });
+    await updateDoc(docRef, user, {merge: true});
   }
 
   async vote(roomId: string, vote: number) {
     const docRef = await doc(this.firestore, 'users', this.currentUser.uid);
-    await updateDoc(docRef, { vote });
+    await updateDoc(docRef, {vote});
   }
 
   calculateAgreementPercentage() {
