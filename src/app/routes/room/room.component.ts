@@ -54,7 +54,7 @@ export class RoomComponent {
         if (this.agreement == 100 && this.room.show_cards) {
           confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
             resize: true,
-          })({particleCount: 200, spread: 200, });
+          })({particleCount: 300, spread: 300, origin: {y: -0.4}, angle: 270 });
         }
         console.log('room data changed');
       });
