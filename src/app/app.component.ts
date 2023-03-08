@@ -35,7 +35,7 @@ export class AppComponent {
   }
 
   async leaveFeedback() {
-    const message = prompt('Please anonymous leave feedback here:');
+    const message = prompt('Please leave anonymous feedback here:');
     if (message) {
       await addDoc(collection(this.firestore, 'feedback'), {
         to: 'dev.levibarker@gmail.com',
