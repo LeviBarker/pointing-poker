@@ -16,9 +16,11 @@
         <div>
           <div class="section">
               <button mat-raised-button (click)="vote(room.id, '🤷')">
-                <span style="font-size: 24px;">🤷</span>
+                <span style="font-size: 16px;">🤷</span>
               </button>
-              <button mat-raised-button *ngFor="let card of cardOptions" (click)="vote(room.id, card)">{{card}}</button>&nbsp;
+              <button mat-raised-button *ngFor="let card of cardOptions" (click)="vote(room.id, card)">
+                <span style="font-size: 16px;">{{card}}</span>
+              </button>&nbsp;
           </div>
         </div>
       </div>
@@ -38,7 +40,7 @@
                 <mat-icon *ngIf="user.vote" fontIcon="check"></mat-icon>
                 <mat-icon *ngIf="!user.vote" fontIcon="question_mark"></mat-icon>
               </span>
-              <span *ngIf="room.show_cards">
+              <span *ngIf="room.show_cards" style="font-size: 16px;">
                 {{user.vote}}
               </span>
             </button>
