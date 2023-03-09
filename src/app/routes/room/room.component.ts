@@ -27,9 +27,10 @@ export class RoomComponent {
   users: any[] = [];
   firestore: Firestore;
   currentUser: any;
-  average = 0;
+  average: string | number = 0;
   agreement = 0;
   cardOptions: any[] = [];
+  issue: string = '';
 
   constructor(
     firestore: Firestore,
@@ -50,8 +51,9 @@ export class RoomComponent {
           id: doc.id,
           ...doc.data(),
         } as Room;
+        this.issue = this.room.issue;
         this.cardOptions = this.room.card_options.split(',');
-        if (this.agreement == 100 && this.room.show_cards) {
+        if (this.agreement > 98 && this.room.show_cards) {
           confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
             resize: true,
           })({
@@ -75,16 +77,17 @@ export class RoomComponent {
             ...doc.data(),
           };
         });
-        this.average = Number(
+        const average = Number(
           (
             this.users.reduce((acc, user) => {
-              if (user.vote) {
+              if (user.vote && user.vote != '🤷') {
                 return acc + Number(user.vote);
               }
               return acc;
-            }, 0) / this.users.filter((user) => user.vote).length
+            }, 0) / this.users.filter((user) => user.vote && user.vote != '🤷').length
           ).toFixed(2)
         );
+        this.average = isNaN(average) ? '???' : average;
         this.agreement = this.calculateAgreementPercentage();
       });
     });
@@ -122,6 +125,14 @@ export class RoomComponent {
     }
   }
 
+  async updateIssue(issue: any) {
+    if(issue != this.room.issue){
+      const docRef = await doc(this.firestore, 'rooms', this.room.id);
+      await updateDoc(docRef, {issue, show_cards: false});
+      await this.clearVotes(this.room);
+    }
+  }
+
   async updateRoom(room: any) {
     const docRef = await doc(this.firestore, 'rooms', room.id);
     await updateDoc(docRef, room);
@@ -150,13 +161,13 @@ export class RoomComponent {
     await updateDoc(docRef, user, {merge: true});
   }
 
-  async vote(roomId: string, vote: number) {
+  async vote(roomId: string, vote: any) {
     const docRef = await doc(this.firestore, 'users', this.currentUser.uid);
     await updateDoc(docRef, {vote});
   }
 
   calculateAgreementPercentage() {
-    const votes = this.users.map((user) => user.vote).filter((v) => v);
+    const votes = this.users.map((user) => user.vote).filter((v) => v && v != '🤷');
     if (!votes.length) {
       return 0;
     }
