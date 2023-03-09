@@ -4,8 +4,7 @@
         <h2>Room: {{room.name}}</h2>
         <mat-form-field style="width: 100%" appearance="outline" class="example-full-width">
           <mat-label>Issue</mat-label>
-          <input matInput [(ngModel)]="room.issue" (keydown.enter)="updateRoom(room)">
-          <button style="margin-right: 8px" mat-button matSuffix color="primary" (click)="updateRoom(room)">Update</button>
+          <input matInput [(ngModel)]="issue" (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
         </mat-form-field>
         <div style="display: flex; gap: 8px; align-items: center;">
           <button mat-raised-button color="primary" (click)="toggleShowCards(room)">{{room.show_cards ? 'Hide' : 'Show'}} Votes</button>
@@ -16,20 +15,22 @@
         </div>
         <div>
           <div class="section">
+              <button mat-raised-button (click)="vote(room.id, '🤷')">
+                <span style="font-size: 24px;">🤷</span>
+              </button>
               <button mat-raised-button *ngFor="let card of cardOptions" (click)="vote(room.id, card)">{{card}}</button>&nbsp;
           </div>
         </div>
       </div>
-        
+
       <div style="padding: 8px; display: flex; flex-direction: column;">
         <div *ngFor="let user of users" style="display: flex; align-items: center;">
             <mat-form-field appearance="outline" class="example-full-width custom-field">
               <img style="width: 42px" alt="user image" matPrefix [src]="'https://robohash.org/' + user.id"/>
               <mat-label>Name</mat-label>
-              <input matInput style="color: #000; height: 24px;" [disabled]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)">
-              <button *ngIf="currentUser.uid === user.id" style="margin-right: 8px" mat-button matSuffix color="primary" (click)="updateUser(user)">Update</button>
+              <input matInput style="color: #000; height: 24px;" [disabled]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
             </mat-form-field>
-            <button style="margin-left: 8px; transform: translateY(-10px)" 
+            <button style="margin-left: 8px; transform: translateY(-10px)"
             [style.backgroundColor]="user.vote ? 'green' : null"
             [style.color]="user.vote ? 'white' : null"
             mat-raised-button>
@@ -39,10 +40,10 @@
               </span>
               <span *ngIf="room.show_cards">
                 {{user.vote}}
-              </span> 
+              </span>
             </button>
-            
+
           </div>
       </div>
-      
+
 </div>
