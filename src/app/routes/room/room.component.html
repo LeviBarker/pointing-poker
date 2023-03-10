@@ -1,14 +1,14 @@
 <div class="room">
     <div>
-      <a href="/">Back to home</a>
+      <a [routerLink]="['/']">Back to home</a>
         <h2>Room: {{room.name}}</h2>
         <mat-form-field style="width: 100%" appearance="outline" class="example-full-width">
           <mat-label>Issue</mat-label>
           <input matInput [(ngModel)]="issue" (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
         </mat-form-field>
         <div style="display: flex; gap: 8px; align-items: center;">
-          <button mat-raised-button color="primary" (click)="toggleShowCards(room)">{{room.show_cards ? 'Hide' : 'Show'}} Votes</button>
-          <button mat-raised-button color="warn" (click)="clearVotes(room)">Clear Votes</button>
+          <button mat-stroked-button color="primary" (click)="toggleShowCards(room)">{{room.show_cards ? 'Hide' : 'Show'}} Votes</button>
+          <button mat-stroked-button color="warn" (click)="clearVotes(room)">Clear Votes</button>
           <div>Average: {{room.show_cards ? average : '???'}}</div>
           <div>&middot;</div>
           <div>Agreement: {{room.show_cards ? agreement + '%' : '???'}}</div>
@@ -27,8 +27,8 @@
 
       <div style="padding: 8px; display: flex; flex-direction: column;">
         <div *ngFor="let user of users" style="display: flex; align-items: center;">
-            <mat-form-field appearance="outline" class="example-full-width custom-field">
-              <img style="width: 42px" alt="user image" matPrefix [src]="'https://robohash.org/' + user.id"/>
+          <img style="border-radius: 99px; box-shadow: 0 4px 8px lightgray; width: 42px; margin-right: 8px; transform: translateY(-10px)" alt="user image" matPrefix [src]="user.photoURL"/>
+          <mat-form-field appearance="outline" class="example-full-width custom-field">
               <mat-label>Name</mat-label>
               <input matInput style="color: #000; height: 24px;" [disabled]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
             </mat-form-field>
@@ -44,8 +44,6 @@
                 {{user.vote}}
               </span>
             </button>
-
           </div>
       </div>
-
 </div>
