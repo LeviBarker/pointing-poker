@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HomeComponent } from './routes/home/home.component';
 import { FormsModule } from '@angular/forms';
+import {getRemoteConfig, provideRemoteConfig} from "@angular/fire/remote-config";
 
 @NgModule({
   declarations: [AppComponent, RoomComponent, HomeComponent],
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideRemoteConfig(() => getRemoteConfig()),
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,

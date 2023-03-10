@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Auth, signInAnonymously } from '@angular/fire/auth';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {fetchAndActivate, getValue, RemoteConfig} from "@angular/fire/remote-config";
 
 @Component({
   selector: 'app-root',
@@ -9,16 +10,32 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'pointing-poker';
+  title = 'Pointing Poker';
   firetore: Firestore = {} as Firestore;
+
+  theme: Record<string, string> | null = null;
 
   constructor(
     private auth: Auth,
     private snackbar: MatSnackBar,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private remoteConfig: RemoteConfig
   ) {
     this.login();
     this.firestore = firestore;
+    this.remoteConfig.settings.minimumFetchIntervalMillis = 300000;
+    this.remoteConfig.settings.fetchTimeoutMillis = 2000;
+    this.remoteConfig.defaultConfig = {
+      app_name: 'Pointing Poker',
+      theme: JSON.stringify({
+        'background-color': '#ffffff',
+        'color': '#314a52',
+      })
+    };
+    fetchAndActivate(this.remoteConfig).then(() => {
+      this.title = getValue(this.remoteConfig, 'app_name').asString();
+      this.theme = JSON.parse(getValue(this.remoteConfig, 'theme').asString());
+    });
   }
 
   login() {
