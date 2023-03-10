@@ -36,11 +36,11 @@
             [style.backgroundColor]="user.vote ? 'green' : null"
             [style.color]="user.vote ? 'white' : null"
             mat-raised-button>
-              <span *ngIf="!room.show_cards">
+              <span *ngIf="!room.show_cards && currentUser.uid !== user.id">
                 <mat-icon *ngIf="user.vote" fontIcon="check"></mat-icon>
                 <mat-icon *ngIf="!user.vote" fontIcon="question_mark"></mat-icon>
               </span>
-              <span *ngIf="room.show_cards" style="font-size: 16px;">
+              <span *ngIf="room.show_cards || currentUser.uid === user.id" style="font-size: 16px;">
                 {{user.vote}}
               </span>
             </button>
