@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Auth, signInAnonymously } from '@angular/fire/auth';
+import {Auth, GoogleAuthProvider, onAuthStateChanged, signInAnonymously, signInWithPopup} from '@angular/fire/auth';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {fetchAndActivate, getValue, RemoteConfig} from "@angular/fire/remote-config";
@@ -15,14 +15,20 @@ export class AppComponent {
 
   theme: Record<string, string> | null = null;
 
+  currentUser: any;
+  userHasLoaded: boolean = false;
+
   constructor(
-    private auth: Auth,
+    public auth: Auth,
     private snackbar: MatSnackBar,
     private firestore: Firestore,
     private remoteConfig: RemoteConfig
   ) {
-    this.login();
     this.firestore = firestore;
+    onAuthStateChanged(auth, (user) => {
+      this.currentUser = user;
+      this.userHasLoaded = true;
+    });
     this.remoteConfig.settings.minimumFetchIntervalMillis = 300000;
     this.remoteConfig.settings.fetchTimeoutMillis = 2000;
     this.remoteConfig.defaultConfig = {
@@ -38,8 +44,17 @@ export class AppComponent {
     });
   }
 
-  login() {
+  loginAnonymously() {
     signInAnonymously(this.auth);
+  }
+
+  async loginWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(this.auth, provider);
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 
   copyToClipboard() {

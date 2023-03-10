@@ -113,13 +113,15 @@ export class RoomComponent {
         {merge: true}
       );
     } else {
+      const name = this.auth.currentUser?.displayName || uniqueNamesGenerator({
+        dictionaries: [adjectives, animals],
+        separator: ' ',
+        style: 'capital',
+      });
       await setDoc(docRef, {
         roomId,
-        name: uniqueNamesGenerator({
-          dictionaries: [adjectives, animals],
-          separator: ' ',
-          style: 'capital',
-        }),
+        name,
+        photoURL: this.auth.currentUser?.photoURL || 'https://robohash.org/' + name,
         vote: null,
       });
     }
