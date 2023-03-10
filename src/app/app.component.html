@@ -1,15 +1,17 @@
-<mat-toolbar color="primary" style="justify-content: space-between;">
+<div *ngIf="theme">
+  <mat-toolbar color="primary" style="justify-content: space-between;" [ngStyle]="theme">
     <div style="display: flex; align-items: center; gap: 4px;">
-        <img style="height: 32px;" src="assets/Playing-Cards.svg">
-        <span style="font-weight: bold; font-size: 22px;">Pointing Poker</span>
+      <img alt="logo" style="height: 32px;" src="assets/Playing-Cards.svg">
+      <span style="font-weight: bold; font-size: 22px;">{{title}}</span>
     </div>
     <div>
-        <button mat-icon-button (click)="leaveFeedback()">
-            <mat-icon fontIcon="chat"></mat-icon>
-        </button>
-        <button mat-icon-button (click)="copyToClipboard()">
-            <mat-icon fontIcon="share"></mat-icon>
-        </button>
+      <button mat-icon-button (click)="leaveFeedback()">
+        <mat-icon fontIcon="chat"></mat-icon>
+      </button>
+      <button mat-icon-button (click)="copyToClipboard()">
+        <mat-icon fontIcon="share"></mat-icon>
+      </button>
     </div>
-</mat-toolbar>
-<router-outlet></router-outlet>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</div>
