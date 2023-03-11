@@ -16,6 +16,7 @@ import {Room} from 'src/app/models/Room';
 import {Auth, onAuthStateChanged} from '@angular/fire/auth';
 import {adjectives, animals, uniqueNamesGenerator,} from 'unique-names-generator';
 import * as confetti from 'canvas-confetti';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-room',
@@ -35,7 +36,8 @@ export class RoomComponent {
   constructor(
     firestore: Firestore,
     private route: ActivatedRoute,
-    public auth: Auth
+    public auth: Auth,
+    private snackbar: MatSnackBar,
   ) {
     route.params.subscribe((params: any) => {
       console.log('route params changed');
@@ -184,5 +186,12 @@ export class RoomComponent {
     );
     const modeCount = votes.filter((v) => v === mode).length;
     return Math.round((modeCount / votes.length) * 100);
+  }
+
+  copyToClipboard() {
+    navigator.clipboard.writeText(window.location.href);
+    this.snackbar.open('📋 Room copied to clipboard!', '', {
+      duration: 2000,
+    });
   }
 }

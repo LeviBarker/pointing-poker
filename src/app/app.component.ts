@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {Auth, GoogleAuthProvider, onAuthStateChanged, signInAnonymously, signInWithPopup} from '@angular/fire/auth';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {fetchAndActivate, getValue, RemoteConfig} from "@angular/fire/remote-config";
 
 @Component({
@@ -14,13 +13,14 @@ export class AppComponent {
   firetore: Firestore = {} as Firestore;
 
   theme: Record<string, string> | null = null;
+  logoUrl: string = 'assets/Playing-Cards.svg';
 
   currentUser: any;
   userHasLoaded: boolean = false;
 
+
   constructor(
     public auth: Auth,
-    private snackbar: MatSnackBar,
     private firestore: Firestore,
     private remoteConfig: RemoteConfig
   ) {
@@ -36,11 +36,13 @@ export class AppComponent {
       theme: JSON.stringify({
         'background-color': '#ffffff',
         'color': '#314a52',
-      })
+      }),
+      logo_url: 'assets/Playing-Cards.svg',
     };
     fetchAndActivate(this.remoteConfig).then(() => {
       this.title = getValue(this.remoteConfig, 'app_name').asString();
       this.theme = JSON.parse(getValue(this.remoteConfig, 'theme').asString());
+      this.logoUrl = getValue(this.remoteConfig, 'logo_url').asString();
     });
   }
 
@@ -55,15 +57,6 @@ export class AppComponent {
 
   logout() {
     this.auth.signOut();
-  }
-
-  copyToClipboard() {
-    navigator.clipboard.writeText(window.location.href);
-    this.snackbar.open('📋 Room copied to clipboard!', '', {
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-      duration: 2000,
-    });
   }
 
   async leaveFeedback() {

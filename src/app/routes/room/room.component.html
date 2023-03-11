@@ -1,7 +1,12 @@
 <div class="room">
     <div>
-      <a [routerLink]="['/']">Back to home</a>
-        <h2>Room: {{room.name}}</h2>
+        <a [routerLink]="['/']">Back to home</a>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button mat-icon-button (click)="copyToClipboard()">
+            <mat-icon fontIcon="share"></mat-icon>
+          </button>
+          <h2>Room: {{room.name}}</h2>
+        </div>
         <mat-form-field style="width: 100%" appearance="outline" class="example-full-width">
           <mat-label>Issue</mat-label>
           <input matInput [(ngModel)]="issue" (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">

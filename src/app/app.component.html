@@ -1,19 +1,28 @@
 <div *ngIf="theme">
   <mat-toolbar color="primary" style="justify-content: space-between;" [ngStyle]="theme">
-    <div style="display: flex; align-items: center; gap: 4px;">
-      <img alt="logo" style="height: 32px;" src="assets/Playing-Cards.svg">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img alt="logo" style="height: 24px;" [src]="logoUrl">
       <span style="font-weight: bold; font-size: 22px;">{{title}}</span>
     </div>
-    <div style="display: flex; align-items: center; gap: 4px;">
-        <button mat-icon-button (click)="leaveFeedback()">
-            <mat-icon fontIcon="chat"></mat-icon>
+    <div>
+      <div *ngIf="currentUser && userHasLoaded" style="display: flex; align-items: center; gap: 4px;">
+        <button mat-icon-button [matMenuTriggerFor]="userMenu">
+          <mat-icon fontIcon="account_circle"></mat-icon>
         </button>
-        <button mat-icon-button (click)="copyToClipboard()">
-            <mat-icon fontIcon="share"></mat-icon>
+      </div>
+      <mat-menu #userMenu="matMenu">
+        <div mat-menu-item class="mat-typography">
+          <span class="mat-caption">Logged in as: {{currentUser?.isAnonymous ? 'Anonymous User' : currentUser?.displayName}}</span>
+        </div>
+        <button mat-menu-item (click)="leaveFeedback()">
+          <mat-icon fontIcon="chat"></mat-icon>
+          <span>Leave Feedback</span>
         </button>
-        <button mat-button *ngIf="userHasLoaded && currentUser" (click)="logout()">
-          Sign Out
+        <button mat-menu-item (click)="logout()">
+          <mat-icon fontIcon="logout"></mat-icon>
+          <span>Sign Out</span>
         </button>
+      </mat-menu>
     </div>
 </mat-toolbar>
 
@@ -32,7 +41,8 @@
 
 <ng-template #loginOptions>
   <div style="height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center;">
-    <div style="width: 200px; display: flex; flex-direction: column; align-items: stretch; gap: 8px;">
+    <div style="width: 300px; display: flex; flex-direction: column; align-items: stretch; gap: 8px;">
+      <h3>Sign in to Pointing Poker</h3>
       <button mat-stroked-button (click)="loginAnonymously()">
         <mat-icon fontIcon="person"></mat-icon> Continue Anonymously
       </button>
@@ -41,7 +51,6 @@
           <img src="assets/Google__G__Logo.svg" style="height: 16px" />
           Continue with Google
         </div>
-
       </button>
     </div>
   </div>
