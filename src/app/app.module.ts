@@ -18,6 +18,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HomeComponent } from './routes/home/home.component';
 import { FormsModule } from '@angular/forms';
 import {getRemoteConfig, provideRemoteConfig} from "@angular/fire/remote-config";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [AppComponent, RoomComponent, HomeComponent],
@@ -35,6 +36,7 @@ import {getRemoteConfig, provideRemoteConfig} from "@angular/fire/remote-config"
     MatToolbarModule,
     MatSnackBarModule,
     MatProgressBarModule,
+    MatMenuModule,
     FormsModule,
   ],
   providers: [],
