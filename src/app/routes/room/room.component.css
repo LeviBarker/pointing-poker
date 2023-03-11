@@ -5,10 +5,6 @@
   padding: 16px 0;
 }
 
-.room {
-  padding: 16px;
-}
-
 .custom-field
   .mat-mdc-text-field-wrapper.mdc-text-field--outlined
   .mat-mdc-form-field-infix {

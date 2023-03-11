@@ -27,7 +27,7 @@
 </mat-toolbar>
 
 <div *ngIf="userHasLoaded; else loadingUser">
-  <div *ngIf="currentUser; else loginOptions">
+  <div *ngIf="currentUser; else loginOptions" style="padding: 16px; padding-bottom: 64px;">
     <router-outlet></router-outlet>
   </div>
 </div>
@@ -56,4 +56,6 @@
   </div>
 
 </ng-template>
+
+
 
