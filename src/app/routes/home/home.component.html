@@ -4,9 +4,13 @@
     <mat-label>Room Name</mat-label>
     <input matInput [(ngModel)]="roomTitle" (keydown.enter)="createRoom()">
   </mat-form-field>
-  <mat-form-field appearance="outline" class="example-full-width">
+  <mat-form-field appearance="outline">
     <mat-label>Card Options</mat-label>
-    <input matInput [(ngModel)]="cardOptions">
+    <mat-select [(ngModel)]="cardOptions">
+      <mat-option *ngFor="let options of possibleCardOptions" [value]="options">
+        {{options}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
   <button style="margin-right: 8px" mat-raised-button matSuffix color="primary" (click)="createRoom()">Create</button>
 

@@ -8,6 +8,7 @@ import {
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Room } from 'src/app/models/Room';
+import {getValue, RemoteConfig} from "@angular/fire/remote-config";
 
 @Component({
   selector: 'app-home',
@@ -20,9 +21,12 @@ export class HomeComponent {
   roomCollection: CollectionReference<DocumentData>;
   cardOptions: string = '1,2,3,4,5,6,7,8,9,10';
 
-  constructor(firestore: Firestore, private router: Router) {
+  possibleCardOptions: string[] = [];
+
+  constructor(firestore: Firestore, private router: Router, private remoteConfig: RemoteConfig) {
     this.firestore = firestore;
     this.roomCollection = collection(this.firestore, 'rooms');
+    this.possibleCardOptions = getValue(this.remoteConfig, 'card_options').asString()?.replaceAll('"', '').split(':') || [];
   }
 
   onKey(event: any) {
