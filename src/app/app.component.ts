@@ -38,6 +38,11 @@ export class AppComponent {
         'color': '#314a52',
       }),
       logo_url: 'assets/Playing-Cards.svg',
+      card_options: [
+        '1,2,3,4,5,6,7,8,9,10',
+        '0.5,1,2,3,5,8,13,20',
+        'XXS,XS,S,M,L,XL,XXL',
+      ].join(':'),
     };
     fetchAndActivate(this.remoteConfig).then(() => {
       this.title = getValue(this.remoteConfig, 'app_name').asString();

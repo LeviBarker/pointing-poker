@@ -19,6 +19,7 @@ import { HomeComponent } from './routes/home/home.component';
 import { FormsModule } from '@angular/forms';
 import {getRemoteConfig, provideRemoteConfig} from "@angular/fire/remote-config";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [AppComponent, RoomComponent, HomeComponent],
@@ -37,6 +38,7 @@ import {MatMenuModule} from "@angular/material/menu";
     MatSnackBarModule,
     MatProgressBarModule,
     MatMenuModule,
+    MatSelectModule,
     FormsModule,
   ],
   providers: [],
