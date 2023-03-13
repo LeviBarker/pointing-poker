@@ -30,7 +30,7 @@ export class AppComponent {
       this.userHasLoaded = true;
     });
     this.remoteConfig.settings.minimumFetchIntervalMillis = 300000;
-    this.remoteConfig.settings.fetchTimeoutMillis = 2000;
+    this.remoteConfig.settings.fetchTimeoutMillis = 10000;
     this.remoteConfig.defaultConfig = {
       app_name: 'Pointing Poker',
       theme: JSON.stringify({
