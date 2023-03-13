@@ -17,6 +17,7 @@ import {Auth, onAuthStateChanged} from '@angular/fire/auth';
 import {adjectives, animals, uniqueNamesGenerator,} from 'unique-names-generator';
 import * as confetti from 'canvas-confetti';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {throttle} from "helpful-decorators";
 
 @Component({
   selector: 'app-room',
@@ -129,6 +130,7 @@ export class RoomComponent {
     }
   }
 
+  @throttle(400)
   async updateIssue(issue: any) {
     if(issue != this.room.issue){
       const docRef = await doc(this.firestore, 'rooms', this.room.id);
@@ -137,16 +139,19 @@ export class RoomComponent {
     }
   }
 
+  @throttle(400)
   async updateRoom(room: any) {
     const docRef = await doc(this.firestore, 'rooms', room.id);
     await updateDoc(docRef, room);
   }
 
+  @throttle(400)
   async toggleShowCards(room: any) {
     const docRef = await doc(this.firestore, 'rooms', room.id);
     await updateDoc(docRef, {show_cards: !room.show_cards});
   }
 
+  @throttle(400)
   async clearVotes(room: any) {
     const roomRef = await doc(this.firestore, 'rooms', room.id);
     const batch = writeBatch(this.firestore);
@@ -160,11 +165,13 @@ export class RoomComponent {
     batch.commit();
   }
 
+  @throttle(400)
   async updateUser(user: any) {
     const docRef = await doc(this.firestore, 'users', user.id);
     await updateDoc(docRef, user, {merge: true});
   }
 
+  @throttle(400)
   async vote(roomId: string, vote: any) {
     const docRef = await doc(this.firestore, 'users', this.currentUser.uid);
     await updateDoc(docRef, {vote});
