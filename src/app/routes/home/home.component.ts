@@ -20,8 +20,8 @@ export class HomeComponent {
   firestore: Firestore;
   roomCollection: CollectionReference<DocumentData>;
   cardOptions: string = '1,2,3,4,5,6,7,8,9,10';
-
   possibleCardOptions: string[] = [];
+  creatingRoom: boolean = false;
 
   constructor(firestore: Firestore, private router: Router, private remoteConfig: RemoteConfig) {
     this.firestore = firestore;
@@ -29,11 +29,8 @@ export class HomeComponent {
     this.possibleCardOptions = getValue(this.remoteConfig, 'card_options').asString()?.replaceAll('"', '').split(':') || [];
   }
 
-  onKey(event: any) {
-    this.roomTitle = event.target.value;
-  }
-
   async createRoom() {
+    this.creatingRoom = true;
     const room: Partial<Room> = {
       name: this.roomTitle,
       show_cards: false,
