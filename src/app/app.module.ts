@@ -1,25 +1,25 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { RoomComponent } from './routes/room/room.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HomeComponent } from './routes/home/home.component';
-import { FormsModule } from '@angular/forms';
-import {getRemoteConfig, provideRemoteConfig} from "@angular/fire/remote-config";
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule} from '@angular/forms';
+import {HomeComponent} from './routes/home/home.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from "@angular/material/menu";
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSelectModule} from "@angular/material/select";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {RoomComponent} from './routes/room/room.component';
+import {environment} from '../environments/environment';
+import {getRemoteConfig, provideRemoteConfig} from "@angular/fire/remote-config";
+import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
+import {provideAuth, getAuth} from '@angular/fire/auth';
+import {provideFirestore, getFirestore} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [AppComponent, RoomComponent, HomeComponent],
@@ -44,4 +44,5 @@ import {MatSelectModule} from "@angular/material/select";
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

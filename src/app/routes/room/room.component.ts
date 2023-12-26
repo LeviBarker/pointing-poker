@@ -41,9 +41,7 @@ export class RoomComponent {
     private snackbar: MatSnackBar,
   ) {
     route.params.subscribe((params: any) => {
-      console.log('route params changed');
       onAuthStateChanged(this.auth, (user) => {
-        console.log('auth state changed');
         if (user) {
           this.currentUser = user;
           this.registerUserToRoom(params.roomId);
@@ -66,14 +64,12 @@ export class RoomComponent {
             origin: {y: 1.2}
           });
         }
-        console.log('room data changed');
       });
       const userQuery = query(
         collection(firestore, 'users'),
         where('roomId', '==', params.roomId)
       );
       onSnapshot(userQuery, (querySnapshot) => {
-        console.log('user data changed');
         this.users = querySnapshot.docs.map((doc) => {
           return {
             id: doc.id,
