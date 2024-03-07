@@ -11,8 +11,13 @@
         <mat-form-field style="width: 100%" appearance="outline" class="example-full-width">
           <mat-label>Issue</mat-label>
           <input matInput [(ngModel)]="issue" (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
+          <mat-hint *ngIf="isUrl(issue)" style="font-size: 12px">
+            <span>Ticket link:&nbsp;</span>
+            <a [href]="issue" target="_blank">{{getLastPartOfUrlPath(issue)}}</a>
+          </mat-hint>
         </mat-form-field>
-        <div style="display: flex; gap: 8px; align-items: center;">
+
+        <div style="padding-top: 8px; display: flex; gap: 8px; align-items: center;">
           <button mat-stroked-button color="primary" (click)="toggleShowCards(room)">{{room.show_cards ? 'Hide' : 'Show'}} Votes</button>
           <button mat-stroked-button color="warn" (click)="clearVotes(room)">Clear Votes</button>
           <div>Average: {{room.show_cards ? average : '???'}}</div>
