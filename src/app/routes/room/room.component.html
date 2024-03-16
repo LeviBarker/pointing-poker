@@ -43,7 +43,7 @@
       <div style="padding: 8px; display: flex; flex-direction: column;">
         <div *ngFor="let user of users; trackBy: identify" style="display: flex; align-items: center;">
           <img style="border-radius: 99px; width: 42px; margin-right: 8px; transform: translateY(-10px)" alt="user image" matPrefix [src]="user.photoURL"/>
-          <mat-form-field appearance="outline" class="example-full-width custom-field">
+          <mat-form-field color="accent" appearance="outline" class="example-full-width custom-field">
               <mat-label>Name</mat-label>
               <input matInput style="height: 24px;" [disabled]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
             </mat-form-field>
