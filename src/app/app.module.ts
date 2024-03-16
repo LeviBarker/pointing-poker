@@ -20,9 +20,13 @@ import {getRemoteConfig, provideRemoteConfig} from "@angular/fire/remote-config"
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {provideAuth, getAuth} from '@angular/fire/auth';
 import {provideFirestore, getFirestore} from '@angular/fire/firestore';
+import { RoundUpPipe } from './utils/round.pipe';
+import {MatBadgeModule} from "@angular/material/badge";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
-  declarations: [AppComponent, RoomComponent, HomeComponent],
+  declarations: [AppComponent, RoomComponent, HomeComponent, RoundUpPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +44,9 @@ import {provideFirestore, getFirestore} from '@angular/fire/firestore';
     MatMenuModule,
     MatSelectModule,
     FormsModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

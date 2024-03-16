@@ -212,6 +212,14 @@ export class RoomComponent {
       '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
     return pattern.test(input);
   }
+
+  identify(index: number, item: any) {
+    return item.id;
+  }
+
+  open(issue: string){
+    window.open(issue, "_blank");
+  }
 }
 
 

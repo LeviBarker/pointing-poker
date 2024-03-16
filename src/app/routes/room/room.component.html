@@ -1,6 +1,6 @@
 <div class="room">
     <div>
-        <a [routerLink]="['/']">Back to home</a>
+        <button mat-button [routerLink]="['/']">Back</button>
       <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
           <button mat-icon-button (click)="copyToClipboard()">
             <mat-icon fontIcon="share"></mat-icon>
@@ -8,19 +8,23 @@
           <span style="font-weight: bold;">Room:</span>
           <span>{{room.name}}</span>
         </div>
-        <mat-form-field style="width: 100%" appearance="outline" class="example-full-width">
+        <mat-form-field style="width: 100%" color="accent" appearance="outline" class="example-full-width">
           <mat-label>Issue</mat-label>
           <input matInput [(ngModel)]="issue" (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
-          <mat-hint *ngIf="isUrl(issue)" style="font-size: 12px">
-            <span>Ticket link:&nbsp;</span>
-            <a [href]="issue" target="_blank">{{getLastPartOfUrlPath(issue)}}</a>
-          </mat-hint>
+          <button [matTooltip]="getLastPartOfUrlPath(issue)" *ngIf="issue" (click)="open(issue)" mat-icon-button matSuffix>
+            <mat-icon>open_in_new</mat-icon>
+          </button>
         </mat-form-field>
 
         <div style="padding-top: 8px; display: flex; gap: 8px; align-items: center;">
-          <button mat-stroked-button color="primary" (click)="toggleShowCards(room)">{{room.show_cards ? 'Hide' : 'Show'}} Votes</button>
+          <button mat-stroked-button color="accent" (click)="toggleShowCards(room)">{{room.show_cards ? 'Hide' : 'Show'}} Votes</button>
           <button mat-stroked-button color="warn" (click)="clearVotes(room)">Clear Votes</button>
-          <div>Average: {{room.show_cards ? average : '???'}}</div>
+          <div *ngIf="room.show_cards; else questionMarks">
+            <span>Average: {{average}} ({{average | number:'1.0-0'}})</span>
+          </div>
+          <ng-template #questionMarks>
+            ???
+          </ng-template>
           <div>&middot;</div>
           <div>Agreement: {{room.show_cards ? agreement + '%' : '???'}}</div>
         </div>
@@ -37,24 +41,26 @@
       </div>
 
       <div style="padding: 8px; display: flex; flex-direction: column;">
-        <div *ngFor="let user of users" style="display: flex; align-items: center;">
-          <img style="border-radius: 99px; box-shadow: 0 4px 8px lightgray; width: 42px; margin-right: 8px; transform: translateY(-10px)" alt="user image" matPrefix [src]="user.photoURL"/>
+        <div *ngFor="let user of users; trackBy: identify" style="display: flex; align-items: center;">
+          <img style="border-radius: 99px; width: 42px; margin-right: 8px; transform: translateY(-10px)" alt="user image" matPrefix [src]="user.photoURL"/>
           <mat-form-field appearance="outline" class="example-full-width custom-field">
               <mat-label>Name</mat-label>
-              <input matInput style="color: #000; height: 24px;" [disabled]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
+              <input matInput style="height: 24px;" [disabled]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
             </mat-form-field>
+          <div style="display: flex; flex-direction: column; align-items: center;">
             <button style="margin-left: 8px; transform: translateY(-10px)"
-            [style.backgroundColor]="user.vote ? 'green' : null"
-            [style.color]="user.vote ? 'white' : null"
-            mat-raised-button>
+                    [matBadge]="user.vote ? '🗳️' : undefined"
+                    matBadgeColor="accent"
+                    [color]="user.vote ? 'primary' : undefined"
+                    mat-raised-button>
               <span *ngIf="!room.show_cards && currentUser.uid !== user.id">
-                <mat-icon *ngIf="user.vote" fontIcon="check"></mat-icon>
-                <mat-icon *ngIf="!user.vote" fontIcon="question_mark"></mat-icon>
+                <mat-icon fontIcon="question_mark"></mat-icon>
               </span>
               <span *ngIf="room.show_cards || currentUser.uid === user.id" style="font-size: 16px;">
                 {{user.vote}}
               </span>
             </button>
+          </div>
           </div>
       </div>
 </div>
