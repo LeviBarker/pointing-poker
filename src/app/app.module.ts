@@ -26,7 +26,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
-  declarations: [AppComponent, RoomComponent, HomeComponent, RoundUpPipe],
+  declarations: [AppComponent, RoomComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
