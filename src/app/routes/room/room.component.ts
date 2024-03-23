@@ -99,7 +99,8 @@ export class RoomComponent {
   }
 
   async enterRoomPasscode() {
-    if (!this.enteredRoomPasscode &&
+    if (this.room.room_passcode &&
+      !this.enteredRoomPasscode &&
       this.room.owner_uid != this.currentUser.uid &&
       prompt("Enter room passcode") != this.room.room_passcode) {
       await this.router.navigate(['/']);
