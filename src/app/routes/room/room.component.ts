@@ -11,7 +11,7 @@ import {
   where,
   writeBatch,
 } from '@angular/fire/firestore';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Room} from 'src/app/models/Room';
 import {Auth, onAuthStateChanged} from '@angular/fire/auth';
 import {adjectives, animals, uniqueNamesGenerator,} from 'unique-names-generator';
@@ -33,12 +33,14 @@ export class RoomComponent {
   agreement = 0;
   cardOptions: any[] = [];
   issue: string = '';
+  enteredRoomPasscode: boolean = false;
 
   constructor(
     firestore: Firestore,
     private route: ActivatedRoute,
+    private router: Router,
     public auth: Auth,
-    private snackbar: MatSnackBar,
+    private snackbar: MatSnackBar
   ) {
     route.params.subscribe((params: any) => {
       onAuthStateChanged(this.auth, (user) => {
@@ -52,11 +54,13 @@ export class RoomComponent {
           id: doc.id,
           ...doc.data(),
         } as Room;
+        this.enterRoomPasscode();
         this.issue = this.room.issue;
         this.cardOptions = this.room.card_options.split(',');
         if (this.agreement > 98 && this.room.show_cards) {
           confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
             resize: true,
+
           })({
             particleCount: 300,
             spread: 125,
@@ -92,6 +96,16 @@ export class RoomComponent {
     });
 
     this.firestore = firestore;
+  }
+
+  async enterRoomPasscode() {
+    if (!this.enteredRoomPasscode &&
+      this.room.owner_uid != this.currentUser.uid &&
+      prompt("Enter room passcode") != this.room.room_passcode) {
+      await this.router.navigate(['/']);
+      return;
+    }
+    this.enteredRoomPasscode = true;
   }
 
   async registerUserToRoom(roomId: string) {

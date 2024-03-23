@@ -13,12 +13,14 @@ export class RoomService {
     this.roomCollection = collection(firestore, 'rooms');
   }
 
-  async createRoom(name: string, cardOptions: any) {
+  async createRoom(name: string, cardOptions: any, ownerUid: string | undefined, roomPasscode: string | null) {
     const room: Partial<Room> = {
       name,
       show_cards: false,
       card_options: cardOptions,
       created_at: new Date().getTime(),
+      owner_uid: ownerUid,
+      room_passcode: roomPasscode
     };
     return await addDoc(this.roomCollection, room);
   }

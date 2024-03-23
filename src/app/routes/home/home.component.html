@@ -1,16 +1,23 @@
 <div style="padding: 16px; display: flex; flex-direction: column; align-items: flex-start;">
   <h3>Create a room</h3>
-  <mat-form-field appearance="outline" class="example-full-width">
+  <mat-form-field appearance="outline" color="accent" class="example-full-width">
     <mat-label>Room Name</mat-label>
     <input matInput [(ngModel)]="roomTitle" (keydown.enter)="createRoom()">
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" color="accent">
     <mat-label>Card Options</mat-label>
     <mat-select [(ngModel)]="cardOptions">
       <mat-option *ngFor="let options of possibleCardOptions" [value]="options">
         {{options}}
       </mat-option>
     </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" color="accent" class="example-full-width">
+    <mat-label>Room Passcode</mat-label>
+    <input matInput [type]="showPasscode ? 'text' : 'password'" [(ngModel)]="roomPasscode">
+    <button matSuffix mat-icon-button (click)="showPasscode = !showPasscode">
+      <mat-icon>{{ showPasscode ? "visibility" : "visibility_off" }}</mat-icon>
+    </button>
   </mat-form-field>
   <button style="margin-right: 8px" [disabled]="creatingRoom" mat-raised-button matSuffix color="primary" (click)="createRoom()">
     {{creatingRoom ? 'Creating...' : 'Create'}}
