@@ -12,7 +12,7 @@
           <mat-label>Issue</mat-label>
           <input matInput [(ngModel)]="issue" [readonly]="currentUser.uid != room.owner_uid" (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
           <button style="margin-right: 8px;" [matTooltip]="getLastPartOfUrlPath(issue)" *ngIf="issue" (click)="open(issue)" mat-button matSuffix>
-            <mat-icon>open_in_new</mat-icon>&nbsp;Open Ticket
+            <mat-icon>open_in_new</mat-icon>&nbsp;Open Issue
           </button>
         </mat-form-field>
 
@@ -43,13 +43,16 @@
         </div>
       </div>
 
-      <div style="padding: 8px; display: flex; flex-direction: column;">
+      <div style="padding: 8px; display: flex; flex-wrap: wrap;">
         <div *ngFor="let user of users; trackBy: identify" style="display: flex; align-items: center;">
-          <img style="border-radius: 99px; width: 42px; margin-right: 8px; transform: translateY(-10px)" alt="user image" matPrefix [src]="user.photoURL"/>
+          <img style="border-radius: 99px; width: 42px; margin-right: 8px; transform: translateY(-10px); padding-left: 8px;" alt="user image" matPrefix [src]="user.photoURL"/>
           <mat-form-field color="accent" appearance="outline" class="example-full-width custom-field">
-              <mat-label>Name</mat-label>
+              <mat-label>Name <span *ngIf="currentUser.uid == user.id">(You)</span></mat-label>
               <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
-              <mat-icon matSuffix [fontIcon]="user.id == room.owner_uid ? 'star' : ''"></mat-icon>
+              <mat-icon matSuffix *ngIf="!user.locked && user.id == room.owner_uid" color="accent">star</mat-icon>
+              <mat-icon matSuffix *ngIf="user.locked" color="warn">lock</mat-icon>
+              <mat-icon matSuffix *ngIf="!user.locked && user.id != room.owner_uid"></mat-icon>
+
           </mat-form-field>
           <div style="display: flex; flex-direction: column; align-items: center;">
             <button style="margin-left: 8px; transform: translateY(-10px)"
