@@ -5,6 +5,7 @@ interface RemoteConfigProperties {
   title: string;
   theme: any;
   logoUrl: any;
+  bannerButton: any;
 }
 
 @Injectable({
@@ -33,11 +34,13 @@ export class RemoteConfigService {
 
   async getValues(): Promise<RemoteConfigProperties> {
     await fetchAndActivate(this.remoteConfig);
+    const bannerButtonString = this.getValue('banner_button').asString();
 
     return {
       title: this.getValue('app_name').asString(),
       theme: JSON.parse(this.getValue('theme').asString()),
-      logoUrl: this.getValue('logo_url').asString()
+      logoUrl: this.getValue('logo_url').asString(),
+      bannerButton: bannerButtonString ? JSON.parse(bannerButtonString) : null
     };
   }
 

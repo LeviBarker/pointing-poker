@@ -54,7 +54,6 @@ export class RoomComponent {
           id: doc.id,
           ...doc.data(),
         } as Room;
-        this.enterRoomPasscode();
         this.issue = this.room.issue;
         this.cardOptions = this.room.card_options.split(',');
         if (this.agreement > 98 && this.room.show_cards) {
@@ -103,10 +102,14 @@ export class RoomComponent {
       !this.enteredRoomPasscode &&
       this.room.owner_uid != this.currentUser.uid &&
       prompt("Enter room passcode") != this.room.room_passcode) {
+      this.snackbar.open('Incorrect Room Code', '', {
+        duration: 2000,
+      });
       await this.router.navigate(['/']);
-      return;
+      return false;
     }
     this.enteredRoomPasscode = true;
+    return true;
   }
 
   async registerUserToRoom(roomId: string) {
@@ -117,6 +120,10 @@ export class RoomComponent {
     const docRef = doc(this.firestore, 'users', userId);
     const docSnap = await getDoc(docRef);
 
+    const enteredCorrectPasscode = await this.enterRoomPasscode();
+    if(!enteredCorrectPasscode) {
+      return;
+    }
     if (docSnap.exists()) {
       await setDoc(
         docRef,
@@ -234,6 +241,17 @@ export class RoomComponent {
 
   open(issue: string){
     window.open(issue, "_blank");
+  }
+
+
+  async makeOwner(id: string) {
+    const docRef = doc(this.firestore, 'rooms', this.room.id);
+    await updateDoc(docRef, {owner_uid: id});
+  }
+
+  async kick(id: string) {
+    const docRef = doc(this.firestore, 'users', id);
+    await updateDoc(docRef, {roomId: null});
   }
 }
 

@@ -12,6 +12,10 @@ export class AppComponent implements OnInit {
   title = 'Pointing Poker';
   theme: Record<string, string> | null = null;
   logoUrl: string = 'assets/Playing-Cards.svg';
+  bannerButton: {
+    link: string;
+    text: string;
+  } | null = null;
 
   currentUser: any;
   userHasLoaded: boolean = false;
@@ -38,6 +42,7 @@ export class AppComponent implements OnInit {
       this.title = values.title;
       this.theme = values.theme;
       this.logoUrl = values.logoUrl;
+      this.bannerButton = values.bannerButton;
     } catch (e) {
       console.error(`Unknown error occurred when fetching remote config`)
     }
@@ -67,5 +72,9 @@ export class AppComponent implements OnInit {
         }
       })
     }
+  }
+
+  openLink(link: string) {
+    window.open(link, '_blank');
   }
 }

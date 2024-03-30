@@ -45,7 +45,11 @@
 
       <div style="padding: 8px; display: flex; flex-wrap: wrap;">
         <div *ngFor="let user of users; trackBy: identify" style="display: flex; align-items: center;">
-          <img style="border-radius: 99px; width: 42px; margin-right: 8px; transform: translateY(-10px); padding-left: 8px;" alt="user image" matPrefix [src]="user.photoURL"/>
+          <img [matMenuTriggerFor]="room.owner_uid == currentUser.uid && user.id != currentUser.uid ? userMenu : null" style="border-radius: 99px; width: 42px; margin-right: 8px; transform: translateY(-10px); padding-left: 8px;" alt="user image" matPrefix [src]="user.photoURL"/>
+          <mat-menu #userMenu="matMenu">
+            <button (click)="makeOwner(user.id)" mat-menu-item>Make {{user.name}} Room Owner</button>
+            <button (click)="kick(user.id)" mat-menu-item>Kick {{user.name}}</button>
+          </mat-menu>
           <mat-form-field color="accent" appearance="outline" class="example-full-width custom-field">
               <mat-label>Name <span *ngIf="currentUser.uid == user.id">(You)</span></mat-label>
               <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
