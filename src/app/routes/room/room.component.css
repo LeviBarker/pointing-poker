@@ -10,3 +10,24 @@
   .mat-mdc-form-field-infix {
   min-height: 40px !important;
 }
+
+.user-container {
+  padding: 0 8px;
+  border-radius: 12px;
+}
+
+.current-user-container {
+  background: rgba(33,33,33,.25);
+}
+
+.user-container > * {
+  margin-top: 20px;
+}
+
+.current-user {
+  border: 1px solid #69f0ae;
+}
+
+.other-user {
+  border: 1px solid grey;
+}

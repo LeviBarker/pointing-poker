@@ -73,12 +73,12 @@ export class RoomComponent {
         where('roomId', '==', params.roomId)
       );
       onSnapshot(userQuery, (querySnapshot) => {
-        this.users = querySnapshot.docs.map((doc) => {
+        this.users = this.prioritizeObject(querySnapshot.docs.map((doc) => {
           return {
             id: doc.id,
             ...doc.data(),
           };
-        });
+        }), 'id', this.currentUser.uid)
         const average = Number(
           (
             this.users.reduce((acc, user) => {
@@ -252,6 +252,10 @@ export class RoomComponent {
   async kick(id: string) {
     const docRef = doc(this.firestore, 'users', id);
     await updateDoc(docRef, {roomId: null});
+  }
+
+  prioritizeObject(arr: any, prop: string, value: any) {
+    return arr.sort((a: { [x: string]: any; }, b: { [x: string]: any; }) => (a[prop] === value ? -1 : b[prop] === value ? 1 : 0));
   }
 }
 
