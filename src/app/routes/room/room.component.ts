@@ -142,7 +142,7 @@ export class RoomComponent {
       await setDoc(docRef, {
         roomId,
         name,
-        photoURL: this.auth.currentUser?.photoURL || 'https://robohash.org/' + name,
+        photoURL: this.auth.currentUser?.photoURL || `https://github.com/identicons/${name.split(' ')[0]}.png`,
         vote: null,
       });
     }
