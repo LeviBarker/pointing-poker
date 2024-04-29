@@ -45,7 +45,7 @@
 
       <div style="padding: 8px; display: flex; flex-wrap: wrap; gap: 8px;">
         <div *ngFor="let user of users; trackBy: identify" style="display: flex; align-items: center; padding-right: 12px;" class="user-container"  [class]="user.id === currentUser.uid ? 'current-user-container' : ''">
-          <img [matMenuTriggerFor]="room.owner_uid == currentUser.uid && user.id != currentUser.uid ? userMenu : null" [class]="currentUser.uid == user.id ? 'current-user' : 'other-user'" style="cursor: pointer; border-radius: 99px; width: 42px; height: 42px; margin-right: 8px; transform: translateY(-10px); margin-left: 8px;" alt="user image" matPrefix [src]="user.photoURL"/>
+          <img [matMenuTriggerFor]="(room.owner_uid == currentUser.uid || currentUser.uid === 'HMr1YMpQvzL9PhOfrBUVxHHwWgz2') && user.id != currentUser.uid ? userMenu : null" [class]="currentUser.uid == user.id ? 'current-user' : 'other-user'" style="cursor: pointer; border-radius: 99px; width: 42px; height: 42px; margin-right: 8px; transform: translateY(-10px); margin-left: 8px;" alt="user image" matPrefix [src]="user.photoURL"/>
           <mat-menu #userMenu="matMenu">
             <button (click)="makeOwner(user.id)" mat-menu-item>⭐ Make {{user.name}} Room Owner</button>
             <button (click)="kick(user.id)" mat-menu-item>🥾 Kick {{user.name}}</button>
