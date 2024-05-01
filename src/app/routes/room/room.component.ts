@@ -142,7 +142,7 @@ export class RoomComponent {
       await setDoc(docRef, {
         roomId,
         name,
-        photoURL: this.auth.currentUser?.photoURL || `https://github.com/identicons/${name.split(' ')[0]}.png`,
+        photoURL: this.auth.currentUser?.photoURL || `https://github.com/identicons/${this.generateRandomString(3)}.png`,
         vote: null,
       });
     }
@@ -256,6 +256,16 @@ export class RoomComponent {
 
   prioritizeObject(arr: any, prop: string, value: any) {
     return arr.sort((a: { [x: string]: any; }, b: { [x: string]: any; }) => (a[prop] === value ? -1 : b[prop] === value ? 1 : 0));
+  }
+
+  generateRandomString(length: number) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 }
 

@@ -51,24 +51,28 @@
             <button (click)="kick(user.id)" mat-menu-item><mat-icon>person_remove</mat-icon>Kick</button>
           </mat-menu>
           <mat-form-field *ngIf="user.id === currentUser.uid; else userText" color="accent" appearance="outline" class="example-full-width custom-field">
-              <mat-label>Name <span *ngIf="currentUser.uid == user.id">(You)</span></mat-label>
+              <mat-label>Name <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae;">(Room Owner)</span></mat-label>
               <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
-              <mat-icon matSuffix *ngIf="!user.locked && user.id == room.owner_uid" color="accent" matTooltip="Room owner">star</mat-icon>
               <mat-icon matSuffix *ngIf="user.locked" color="warn">lock</mat-icon>
               <mat-icon matSuffix *ngIf="!user.locked && user.id != room.owner_uid"></mat-icon>
           </mat-form-field>
           <ng-template #userText>
                <span style="margin-right: 8px; margin-left: 8px; margin-top: 0; text-overflow: ellipsis;
-    white-space: nowrap; max-width: 232px; overflow: hidden; display: flex; align-items: center; gap: 8px;">
-            {{user.name}} <mat-icon *ngIf="!user.locked && user.id == room.owner_uid" color="accent" matTooltip="Room owner">star</mat-icon>
-          </span>
+    white-space: nowrap; max-width: 232px; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start;">
+                 <span>{{user.name}}</span>
+                 <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae; font-size: 10px;">Room Owner</span>
+               </span>
           </ng-template>
 
           <div style="display: flex; flex-direction: column; align-items: center;">
             <div style="margin-left: 8px; transform: translateY(-10px); color: #fff; height: 56px; width: 56px; display: flex; align-items: center; justify-content: center;">
               <span *ngIf="!room.show_cards && currentUser.uid !== user.id">
                 <mat-icon *ngIf="!user.vote" fontIcon="question_mark"></mat-icon>
-                <mat-icon *ngIf="user.vote" color="accent" fontIcon="check_circle"></mat-icon>
+                <div *ngIf="user.vote" style="display: flex; flex-direction: column; align-items: center;">
+                      <mat-icon color="accent" fontIcon="check_circle"></mat-icon>
+                <small style="font-size: 10px">Voted!</small>
+                </div>
+
               </span>
               <span *ngIf="room.show_cards || currentUser.uid === user.id" style="font-size: 24px;">
                 {{user.vote}}
