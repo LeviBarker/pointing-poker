@@ -52,7 +52,7 @@
           </mat-menu>
           <mat-form-field *ngIf="user.id === currentUser.uid; else userText" color="accent" appearance="outline" class="example-full-width custom-field">
               <mat-label>Name <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae;">(Room Owner)</span></mat-label>
-              <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="user.name" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
+              <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="username" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
               <mat-icon matSuffix *ngIf="user.locked" color="warn">lock</mat-icon>
               <mat-icon matSuffix *ngIf="!user.locked && user.id != room.owner_uid"></mat-icon>
           </mat-form-field>

@@ -34,6 +34,7 @@ export class RoomComponent {
   cardOptions: any[] = [];
   issue: string = '';
   enteredRoomPasscode: boolean = false;
+  username: string = '';
 
   constructor(
     firestore: Firestore,
@@ -74,9 +75,12 @@ export class RoomComponent {
       );
       onSnapshot(userQuery, (querySnapshot) => {
         this.users = this.prioritizeObject(querySnapshot.docs.map((doc) => {
+          if(doc.id == this.currentUser.uid && !this.username) {
+            this.username = doc.data()['name'];
+          }
           return {
             id: doc.id,
-            ...doc.data(),
+            ...doc.data()
           };
         }), 'id', this.currentUser.uid)
         const average = Number(
@@ -186,7 +190,10 @@ export class RoomComponent {
   @throttle(400)
   async updateUser(user: any) {
     const docRef = await doc(this.firestore, 'users', user.id);
-    await updateDoc(docRef, user, {merge: true});
+    await updateDoc(docRef, {
+      ...user,
+      name: this.username
+    }, {merge: true});
   }
 
   @throttle(400)
