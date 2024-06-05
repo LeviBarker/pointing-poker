@@ -1,92 +1,97 @@
 <div class="room" *ngIf="enteredRoomPasscode">
-    <div>
-        <button mat-button [routerLink]="['/']">Back</button>
-      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
-          <button mat-icon-button (click)="copyToClipboard()">
-            <mat-icon fontIcon="share"></mat-icon>
-          </button>
-          <span style="font-weight: bold;">Room:</span>
-          <span>{{room.name}}</span>
-        </div>
-        <mat-form-field style="width: 100%" color="accent" appearance="outline" class="example-full-width">
-          <mat-label>Issue</mat-label>
-          <input matInput [(ngModel)]="issue" [readonly]="currentUser.uid != room.owner_uid" (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
-          <button style="margin-right: 8px;" [matTooltip]="getLastPartOfUrlPath(issue)" *ngIf="issue" (click)="open(issue)" mat-button matSuffix>
-            <mat-icon>open_in_new</mat-icon>&nbsp;Open Issue
-          </button>
-        </mat-form-field>
+  <div>
+    <button mat-button [routerLink]="['/']">Back</button>
+    <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
+      <app-share [valueToCopy]="windowHref"></app-share>
+      <span style="font-weight: bold;">Room:</span>
+      <span>{{ room.name }}</span>
+    </div>
+    <mat-form-field style="width: 100%" color="accent" appearance="outline" class="example-full-width">
+      <mat-label>Issue</mat-label>
+      <input matInput [(ngModel)]="issue" [readonly]="currentUser.uid != room.owner_uid"
+             (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
+      <button style="margin-right: 8px;" [matTooltip]="getLastPartOfUrlPath(issue)" *ngIf="issue" (click)="open(issue)"
+              mat-button matSuffix>
+        <mat-icon>open_in_new</mat-icon>&nbsp;Open Issue
+      </button>
+    </mat-form-field>
 
-        <div style="padding-top: 8px; display: flex; gap: 8px; align-items: center;">
-          <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="accent" (click)="toggleShowCards(room)">{{room.show_cards ? 'Hide' : 'Show'}} Votes</button>
-          <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="warn" (click)="clearVotes(room)">Clear All Votes</button>
-          <div *ngIf="room.show_cards; else questionMarks">
-            <span>Average: {{average}} ({{average | number:'1.0-0'}})</span>
-          </div>
-          <ng-template #questionMarks>
-            ???
-          </ng-template>
-          <div>&middot;</div>
-          <div>Agreement: {{room.show_cards ? agreement + '%' + (agreement < 45 ? " 💩 " : "") : '???'}} </div>
-        </div>
-        <div>
-          <div class="section">
-              <button mat-raised-button color="warn" (click)="vote(room.id, null)">
-                Clear My Vote
-              </button>
-              <button mat-raised-button (click)="vote(room.id, '🤷')">
-                <span style="font-size: 16px;">🤷</span>
-              </button>
-              <button mat-raised-button *ngFor="let card of cardOptions" (click)="vote(room.id, card)">
-                <span style="font-size: 16px;">{{card}}</span>
-              </button>&nbsp;
-          </div>
-        </div>
+    <div style="padding-top: 8px; display: flex; gap: 8px; align-items: center;">
+      <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="accent"
+              (click)="toggleShowCards(room)">{{ room.show_cards ? 'Hide' : 'Show' }} Votes
+      </button>
+      <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="warn" (click)="clearVotes(room)">
+        Clear All Votes
+      </button>
+      <div *ngIf="room.show_cards; else questionMarks">
+        <span>Average: {{ average }} ({{ average | number:'1.0-0' }})</span>
       </div>
+      <ng-template #questionMarks>
+        ???
+      </ng-template>
+      <div>&middot;</div>
+      <div>Agreement: {{ room.show_cards ? agreement + '%' + (agreement < 45 ? " 💩 " : "") : '???' }}</div>
+    </div>
+    <div>
+      <div class="section">
+        <button mat-raised-button color="warn" (click)="vote(room.id, null)">
+          Clear My Vote
+        </button>
+        <button mat-raised-button (click)="vote(room.id, '🤷')">
+          <span style="font-size: 16px;">🤷</span>
+        </button>
+        <button mat-raised-button *ngFor="let card of cardOptions" (click)="vote(room.id, card)">
+          <span style="font-size: 16px;">{{ card }}</span>
+        </button>&nbsp;
+      </div>
+    </div>
+  </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-        <div *ngFor="let user of users; trackBy: identify" style="display: flex; align-items: center; padding-right: 12px;" class="user-container"  [class]="user.id === currentUser.uid ? 'current-user-container' : ''">
-          <img [matMenuTriggerFor]="(room.owner_uid == currentUser.uid || currentUser.uid === 'HMr1YMpQvzL9PhOfrBUVxHHwWgz2') && user.id != currentUser.uid ? userMenu : null" [class]="currentUser.uid == user.id ? 'current-user' : 'other-user'" style="cursor: pointer; border-radius: 99px; width: 42px; height: 42px; margin-right: 8px; transform: translateY(-10px); margin-left: 8px;" alt="user image" matPrefix [src]="user.photoURL"/>
-          <mat-menu #userMenu="matMenu">
-            <button (click)="makeOwner(user.id)" mat-menu-item><mat-icon>star</mat-icon>Transfer Ownership</button>
-            <button (click)="kick(user.id)" mat-menu-item><mat-icon>person_remove</mat-icon>Kick</button>
-          </mat-menu>
-          <mat-form-field *ngIf="user.id === currentUser.uid; else userText" color="accent" appearance="outline" class="example-full-width custom-field">
-              <mat-label>Name <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae;">(Room Owner)</span></mat-label>
-              <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="username" (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
-              <mat-icon matSuffix *ngIf="user.locked" color="warn">lock</mat-icon>
-              <mat-icon matSuffix *ngIf="!user.locked && user.id != room.owner_uid"></mat-icon>
-          </mat-form-field>
-          <ng-template #userText>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+    <div *ngFor="let user of users; trackBy: identify" style="display: flex; align-items: center; padding-right: 12px;"
+         class="user-container" [class]="user.id === currentUser.uid ? 'current-user-container' : ''">
+      <img
+        [matMenuTriggerFor]="(room.owner_uid == currentUser.uid || currentUser.uid === 'HMr1YMpQvzL9PhOfrBUVxHHwWgz2') && user.id != currentUser.uid ? userMenu : null"
+        [class]="currentUser.uid == user.id ? 'current-user' : 'other-user'"
+        style="cursor: pointer; border-radius: 99px; width: 42px; height: 42px; margin-right: 8px; transform: translateY(-10px); margin-left: 8px;"
+        alt="user image" matPrefix [src]="user.photoURL"/>
+      <mat-menu #userMenu="matMenu">
+        <button (click)="makeOwner(user.id)" mat-menu-item>
+          <mat-icon>star</mat-icon>
+          Transfer Ownership
+        </button>
+        <button (click)="kick(user.id)" mat-menu-item>
+          <mat-icon>person_remove</mat-icon>
+          Kick
+        </button>
+      </mat-menu>
+      <mat-form-field *ngIf="user.id === currentUser.uid; else userText" color="accent" appearance="outline"
+                      class="example-full-width custom-field">
+        <mat-label>Name <span *ngIf="!user.locked && user.id == room.owner_uid"
+                              style="color: #69f0ae;">(Room Owner)</span></mat-label>
+        <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="username"
+               (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
+        <mat-icon matSuffix *ngIf="user.locked" color="warn">lock</mat-icon>
+        <mat-icon matSuffix *ngIf="!user.locked && user.id != room.owner_uid"></mat-icon>
+      </mat-form-field>
+      <ng-template #userText>
                <span style="margin-right: 8px; margin-left: 8px; margin-top: 0; text-overflow: ellipsis;
     white-space: nowrap; max-width: 232px; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start;">
-                 <span>{{user.name}}</span>
+                 <span>{{ user.name }}</span>
                  <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae; font-size: 10px;">Room Owner</span>
                </span>
-          </ng-template>
+      </ng-template>
 
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div style="margin-left: 8px; transform: translateY(-10px); color: #fff; height: 56px; width: 56px; display: flex; align-items: center; justify-content: center;">
-              <span *ngIf="!room.show_cards && currentUser.uid !== user.id">
-                <mat-icon *ngIf="!user.vote" fontIcon="question_mark"></mat-icon>
-                <div *ngIf="user.vote" style="display: flex; flex-direction: column; align-items: center;">
-                      <mat-icon color="accent" fontIcon="check_circle"></mat-icon>
-                <small style="font-size: 10px">Voted!</small>
-                </div>
-
-              </span>
-              <span *ngIf="room.show_cards || currentUser.uid === user.id" style="font-size: 24px;">
-                {{user.vote}}
-              </span>
-            </div>
-          </div>
-          </div>
-      </div>
-  <fieldset style="margin-top: 16px; display: inline-block; border-radius: 6px; border: 1px solid #525252;">
-    <legend>
-      <small>Sponsor (Referral Link)</small>
-    </legend>
-    <a href="https://m.do.co/c/4325e4ed6da2" target="_blank">
-      <img style="width: 256px; border: none;" src="assets/digial-ocean-referral.svg">
-    </a>
-  </fieldset>
+      <app-vote [vote]="user.vote" [isCurrentUser]="currentUser.uid == user.id" [showVotes]="room.show_cards" />
+    </div>
+  </div>
+<!--  <app-sponsor/>-->
+  <div *ngIf="highlights$ | async as highlight" class="quote" style="margin-top: 32px; display: flex; gap: 16px; border-radius: 16px; padding: 8px;">
+    <img [src]="highlight.image_url" style="height: 96px; border-radius: 8px">
+    <div>
+      <p style="margin-top: 0;">{{highlight.text}}</p>
+      <span>- {{highlight.author}}, {{highlight.title}}</span>
+      <br/><br/><a target="_blank" href="https://lbarker.notion.site/Highlights-bf6ef159862148e78b4d94f0816f9120?pvs=4" style="color:#0080FF">See more highlights </a>
+    </div>
+  </div>
 </div>

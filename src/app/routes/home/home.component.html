@@ -22,13 +22,6 @@
   <button style="margin-right: 8px" [disabled]="creatingRoom" mat-raised-button matSuffix color="primary" (click)="createRoom()">
     {{creatingRoom ? 'Creating...' : 'Create'}}
   </button>
-  <fieldset style="margin-top: 16px; display: inline-block; border-radius: 6px; border: 1px solid #525252;">
-    <legend>
-      <small>Sponsor (Referral Link)</small>
-    </legend>
-    <a href="https://m.do.co/c/4325e4ed6da2" target="_blank">
-      <img style="width: 256px; border: none;" src="assets/digial-ocean-referral.svg">
-    </a>
-  </fieldset>
+ <app-sponsor />
 </div>
 

@@ -23,9 +23,13 @@ import {provideFirestore, getFirestore} from '@angular/fire/firestore';
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { SponsorComponent } from './routes/room/sponsor/sponsor.component';
+import { ShareComponent } from './routes/room/share/share.component';
+import { VoteComponent } from './routes/room/vote/vote.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
-  declarations: [AppComponent, RoomComponent, HomeComponent],
+  declarations: [AppComponent, RoomComponent, HomeComponent, SponsorComponent, ShareComponent, VoteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -46,8 +50,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatBadgeModule,
     MatChipsModule,
     MatTooltipModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

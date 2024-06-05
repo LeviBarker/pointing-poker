@@ -18,6 +18,8 @@ import {adjectives, animals, uniqueNamesGenerator,} from 'unique-names-generator
 import * as confetti from 'canvas-confetti';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {throttle} from "helpful-decorators";
+import {HighlightService} from "@app/services/highlight.service";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-room',
@@ -35,13 +37,19 @@ export class RoomComponent {
   issue: string = '';
   enteredRoomPasscode: boolean = false;
   username: string = '';
+  windowHref = window.location.href;
+
+  highlights$ = this.highlightService.getHighlights().pipe(
+    map((response: {highlights: any[]}) => response.highlights[Math.round(Math.random() * 2)])
+  )
 
   constructor(
     firestore: Firestore,
     private route: ActivatedRoute,
     private router: Router,
     public auth: Auth,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private highlightService: HighlightService
   ) {
     route.params.subscribe((params: any) => {
       onAuthStateChanged(this.auth, (user) => {

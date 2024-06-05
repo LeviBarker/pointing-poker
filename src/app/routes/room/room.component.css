@@ -32,3 +32,18 @@
 .other-user {
   border: 1px solid grey;
 }
+
+.quote {
+  opacity: 0;
+  animation: 800ms ease-in fade-in 400ms forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 100%;
+  }
+}
