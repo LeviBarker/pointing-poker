@@ -1,0 +1,16 @@
+<div style="display: flex; flex-direction: column; align-items: center;">
+  <div
+    style="margin-left: 8px; transform: translateY(-10px); color: #fff; height: 56px; width: 56px; display: flex; align-items: center; justify-content: center;">
+              <span *ngIf="!showVotes && !isCurrentUser">
+                <mat-icon *ngIf="!vote" fontIcon="question_mark"></mat-icon>
+                <div *ngIf="vote" style="display: flex; flex-direction: column; align-items: center;">
+                      <mat-icon color="accent" fontIcon="check_circle"></mat-icon>
+                <small style="font-size: 10px">Voted!</small>
+                </div>
+
+              </span>
+    <span *ngIf="showVotes || isCurrentUser" style="font-size: 24px;">
+                {{ vote }}
+              </span>
+  </div>
+</div>

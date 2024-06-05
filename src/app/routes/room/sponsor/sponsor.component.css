@@ -1,0 +1,11 @@
+.sponsor-container {
+  margin-top: 16px;
+  display: inline-block;
+  border-radius: 6px;
+  border: 1px solid #525252;
+}
+
+.sponsor-image {
+  width: 256px;
+  border: none;
+}
