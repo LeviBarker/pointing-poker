@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Auth, GoogleAuthProvider, onAuthStateChanged, signInAnonymously, signInWithPopup} from '@angular/fire/auth';
 import {RemoteConfigService} from "@app/services/remote-config.service";
 import {FeedbackService} from "@app/services/feedback.service";
+import {CheckoutService} from "@app/services/checkout.service";
 
 @Component({
   selector: 'app-root',
@@ -19,15 +20,25 @@ export class AppComponent implements OnInit {
 
   currentUser: any;
   userHasLoaded: boolean = false;
+  donatedLoading = true;
+  donated = false;
 
   constructor(
     public auth: Auth,
     private feedbackService: FeedbackService,
-    private remoteConfigService: RemoteConfigService
+    private remoteConfigService: RemoteConfigService,
+    private checkoutService: CheckoutService
   ) {
     onAuthStateChanged(auth, (user) => {
       this.currentUser = user;
       this.userHasLoaded = true;
+      if(user?.uid && user?.isAnonymous == false) {
+        this.checkoutService.getCheckoutSession(user.uid)
+          .then(result => {
+          this.donated = result?.['data']?.['object']
+            this.donatedLoading = false
+        })
+      }
     });
 
   }

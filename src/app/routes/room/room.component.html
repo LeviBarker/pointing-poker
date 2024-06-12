@@ -79,6 +79,7 @@
     white-space: nowrap; max-width: 232px; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start;">
                  <span>{{ user.name }}</span>
                  <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae; font-size: 10px;">Room Owner</span>
+                 <span *ngIf="user.role" style="color: #69f0ae; font-size: 10px;">{{user.role}}</span>
                </span>
       </ng-template>
 
