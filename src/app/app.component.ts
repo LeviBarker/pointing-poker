@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       this.userHasLoaded = true;
       if(user?.uid && user?.isAnonymous == false) {
         this.checkoutService.getCheckoutSession(user.uid)
-          .then(result => {
+          .then((result: any) => {
           this.donated = result?.['data']?.['object']
             this.donatedLoading = false
         })
