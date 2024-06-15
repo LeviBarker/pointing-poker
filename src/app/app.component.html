@@ -30,11 +30,33 @@
 </mat-toolbar>
 
 <div *ngIf="userHasLoaded; else loadingUser">
-  <div *ngIf="currentUser; else loginOptions" style="padding: 16px; padding-bottom: 64px;">
+  <div *ngIf="currentUser; else loginOptions" style="padding: 16px; padding-bottom: 64px; position: relative">
     <router-outlet></router-outlet>
+    <button [matMenuTriggerFor]="menu" mat-fab style="position: fixed; right: 32px; bottom: 32px;">
+      <mat-icon>chat_add_on</mat-icon>
+    </button>
   </div>
 </div>
 </div>
+
+<mat-menu #menu="matMenu">
+  <div style="margin: 12px;" (click)="$event.stopPropagation()">
+    <mat-form-field class="example-full-width" appearance="outline" color="accent">
+      <mat-label>Question</mat-label>
+      <input matInput placeholder="Ex. What time is it?" [(ngModel)]="prompt" (keydown.enter)="submitPrompt()">
+      <button mat-icon-button matSuffix (click)="submitPrompt()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-form-field>
+    <div *ngIf="thinking">
+      thinking...
+    </div>
+    <div *ngIf="!thinking">
+      {{response}}
+    </div>
+  </div>
+  
+</mat-menu>
 
 <ng-template #loadingUser>
   <div style="height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center;">

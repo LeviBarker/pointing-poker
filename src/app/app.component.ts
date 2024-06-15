@@ -3,6 +3,8 @@ import {Auth, GoogleAuthProvider, onAuthStateChanged, signInAnonymously, signInW
 import {RemoteConfigService} from "@app/services/remote-config.service";
 import {FeedbackService} from "@app/services/feedback.service";
 import {CheckoutService} from "@app/services/checkout.service";
+import { PromptService } from './services/prompt.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +29,8 @@ export class AppComponent implements OnInit {
     public auth: Auth,
     private feedbackService: FeedbackService,
     private remoteConfigService: RemoteConfigService,
-    private checkoutService: CheckoutService
+    private checkoutService: CheckoutService,
+    private promptService: PromptService
   ) {
     onAuthStateChanged(auth, (user) => {
       this.currentUser = user;
@@ -87,5 +90,19 @@ export class AppComponent implements OnInit {
 
   openLink(link: string) {
     window.open(link, '_blank');
+  }
+
+
+  prompt: string = '';
+  response: any = '';
+  thinking = false;
+  submitPrompt() {
+    this.thinking = true;
+    this.promptService
+      .prompt(this.prompt)
+      .pipe(
+        tap(() => this.thinking = false)
+      )
+      .subscribe(response => this.response = response);
   }
 }
