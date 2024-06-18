@@ -32,28 +32,31 @@
 <div *ngIf="userHasLoaded; else loadingUser">
   <div *ngIf="currentUser; else loginOptions" style="padding: 16px; padding-bottom: 64px; position: relative">
     <router-outlet></router-outlet>
-    <button [matMenuTriggerFor]="menu" mat-fab style="position: fixed; right: 32px; bottom: 32px;">
-      <mat-icon>chat_add_on</mat-icon>
+    <button matTooltip="Levi AI" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-fab style="position: fixed; right: 32px; bottom: 32px;">
+      <mat-icon>smart_toy</mat-icon>
     </button>
   </div>
 </div>
 </div>
 
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" style="border-radius: 16px;">
   <div style="margin: 12px;" (click)="$event.stopPropagation()">
-    <mat-form-field class="example-full-width" appearance="outline" color="accent">
-      <mat-label>Question</mat-label>
-      <input matInput placeholder="Ex. What time is it?" [(ngModel)]="prompt" (keydown.enter)="submitPrompt()">
-      <button mat-icon-button matSuffix (click)="submitPrompt()">
-        <mat-icon>send</mat-icon>
-      </button>
-    </mat-form-field>
+    <div style="display: flex; gap: 16px; margin-bottom: 16px;" *ngIf="thinking || response">
+      <img src="assets/leviai.svg" style="height: 24px;"/>
     <div *ngIf="thinking">
-      thinking...
+      Levi AI is typing...
     </div>
     <div *ngIf="!thinking">
       {{response}}
     </div>
+    </div>
+    <mat-form-field color="accent">
+      <mat-label>Message</mat-label>
+      <input matInput placeholder="Ex. What is pointing poker?" [(ngModel)]="prompt" (keydown.enter)="submitPrompt()">
+      <button mat-icon-button matSuffix (click)="submitPrompt()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-form-field>
   </div>
   
 </mat-menu>
