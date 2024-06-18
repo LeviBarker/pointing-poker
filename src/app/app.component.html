@@ -41,21 +41,26 @@
 
 <mat-menu #menu="matMenu" style="border-radius: 16px;">
   <div style="margin: 12px;" (click)="$event.stopPropagation()">
-    <div style="display: flex; gap: 16px; margin-bottom: 16px;" *ngIf="thinking || response">
+    <div style="display: flex; gap: 16px; margin-bottom: 16px;">
       <img src="assets/leviai.svg" style="height: 24px;"/>
     <div *ngIf="thinking">
       Levi AI is typing...
     </div>
-    <div *ngIf="!thinking">
+    <div *ngIf="!thinking && response">
       {{response}}
     </div>
+    <div *ngIf="!thinking && !response">
+      Hello! I'm Levi AI, is there anything I can help you with?
     </div>
+    </div>
+   
     <mat-form-field color="accent">
       <mat-label>Message</mat-label>
       <input matInput placeholder="Ex. What is pointing poker?" [(ngModel)]="prompt" (keydown.enter)="submitPrompt()">
       <button mat-icon-button matSuffix (click)="submitPrompt()">
         <mat-icon>send</mat-icon>
       </button>
+      <mat-hint style="font-size: 10px; width: 100%; text-align: center;">Messages are confidential and never shared.</mat-hint>
     </mat-form-field>
   </div>
   
