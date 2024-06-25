@@ -25,6 +25,9 @@
           <mat-icon fontIcon="logout"></mat-icon>
           <span>Sign Out</span>
         </button>
+        <div style=" padding: 16px;">
+          <a style="color: #4092ed !important;" href="https://www.privacypolicies.com/live/07a131dd-48aa-40f9-9cd4-859887c8eb1d">Privacy Policy</a>
+        </div>
       </mat-menu>
     </div>
 </mat-toolbar>
@@ -32,25 +35,26 @@
 <div *ngIf="userHasLoaded; else loadingUser">
   <div *ngIf="currentUser; else loginOptions" style="padding: 16px; padding-bottom: 64px; position: relative">
     <router-outlet></router-outlet>
-    <button matTooltip="Levi AI" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-fab style="position: fixed; right: 32px; bottom: 32px;">
+    <button matTooltip="AI chatbot" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-raised-button color="accent" style="border-radius: 99px; position: fixed; right: 32px; bottom: 32px;">
       <mat-icon>smart_toy</mat-icon>
+      <span>LevAI</span>
     </button>
   </div>
 </div>
 </div>
 
 <mat-menu #menu="matMenu" style="border-radius: 16px;">
-  <div style="margin: 12px;" (click)="$event.stopPropagation()">
+  <div style="margin: 12px; margin-bottom: 36px;" (click)="$event.stopPropagation()">
     <div style="display: flex; gap: 16px; margin-bottom: 16px;">
       <img src="assets/leviai.svg" style="height: 24px;"/>
     <div *ngIf="thinking">
-      Levi AI is typing...
+      LevAI is typing...
     </div>
-    <div *ngIf="!thinking && response">
+    <div *ngIf="!thinking && response" style="background: #0080ff;; border-radius: 0 16px 16px 16px; padding: 12px;">
       {{response}}
     </div>
-    <div *ngIf="!thinking && !response">
-      Hello! I'm Levi AI, is there anything I can help you with?
+    <div *ngIf="!thinking && !response" style="background: #0080ff;; border-radius: 0 16px 16px 16px; padding: 12px; #0080ff;">
+      Hello! I'm LevAI, is there anything I can help you with?
     </div>
     </div>
    
@@ -60,7 +64,7 @@
       <button mat-icon-button matSuffix (click)="submitPrompt()">
         <mat-icon>send</mat-icon>
       </button>
-      <mat-hint style="font-size: 10px; width: 100%; text-align: center;">Messages are confidential and never shared.</mat-hint>
+      <mat-hint style="font-size: 10px; width: 100%; text-align: center;">Messages used for model inference do not become part of OpenAI training data, and are not saved or shared outside of OpenAI API requests.</mat-hint>
     </mat-form-field>
   </div>
   
