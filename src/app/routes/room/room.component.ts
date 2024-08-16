@@ -19,7 +19,7 @@ import * as confetti from 'canvas-confetti';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {throttle} from "helpful-decorators";
 import {HighlightService} from "@app/services/highlight.service";
-import {map} from "rxjs";
+import {map, take} from "rxjs";
 
 @Component({
   selector: 'app-room',
@@ -166,6 +166,10 @@ export class RoomComponent {
       const docRef = await doc(this.firestore, 'rooms', this.room.id);
       await updateDoc(docRef, {issue, show_cards: false});
       await this.clearVotes(this.room);
+      const ref = this.snackbar.open("A new issue is being voted on!", "Open Issue", {
+        duration: 10_000,
+      });
+      ref.onAction().pipe(take(1)).subscribe(() => window.open(this.room.issue, '_blank'));
     }
   }
 
