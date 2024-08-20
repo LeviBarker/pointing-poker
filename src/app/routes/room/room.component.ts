@@ -112,7 +112,7 @@ export class RoomComponent {
             }, 0) / this.users.filter((user) => user.vote && user.vote != '🤷').length
           ).toFixed(2)
         );
-        if(allVotes && this.room.owner_uid == this.currentUser.uid) {
+        if(allVotes && this.users.length > 1 && this.room.owner_uid == this.currentUser.uid) {
             const ref = this.snackbar.open("The votes are in!", "Show Votes", {
               duration: 10_000,
             });
