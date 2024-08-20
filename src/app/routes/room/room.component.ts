@@ -13,7 +13,7 @@ import {
 } from '@angular/fire/firestore';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Room} from 'src/app/models/Room';
-import {Auth, onAuthStateChanged} from '@angular/fire/auth';
+import {Auth, onAuthStateChanged, user} from '@angular/fire/auth';
 import {adjectives, animals, uniqueNamesGenerator,} from 'unique-names-generator';
 import * as confetti from 'canvas-confetti';
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -63,6 +63,12 @@ export class RoomComponent {
           id: doc.id,
           ...doc.data(),
         } as Room;
+        if(this.issue != null && this.issue != "" && this.room.issue != this.issue) {
+          const ref = this.snackbar.open("A new issue is being voted on!", "Open Issue", {
+            duration: 10_000,
+          });
+          ref.onAction().pipe(take(1)).subscribe(() => window.open(this.room.issue, '_blank'));
+        }
         this.issue = this.room.issue;
         this.cardOptions = this.room.card_options.split(',');
         if (this.agreement > 98 && this.room.show_cards) {
@@ -91,9 +97,14 @@ export class RoomComponent {
             ...doc.data()
           };
         }), 'id', this.currentUser.uid)
+        let allVotes = true;
         const average = Number(
           (
             this.users.reduce((acc, user) => {
+              if(this.room.owner_uid != user.id && !user.vote) {
+                console.log({room: this.room, user})
+                allVotes = false;
+              }
               if (user.vote && user.vote != '🤷') {
                 return acc + Number(user.vote);
               }
@@ -101,6 +112,12 @@ export class RoomComponent {
             }, 0) / this.users.filter((user) => user.vote && user.vote != '🤷').length
           ).toFixed(2)
         );
+        if(allVotes && this.room.owner_uid == this.currentUser.uid) {
+            const ref = this.snackbar.open("The votes are in!", "Show Votes", {
+              duration: 10_000,
+            });
+            ref.onAction().pipe(take(1)).subscribe(() => this.toggleShowCards(this.room));
+        }
         this.average = isNaN(average) ? '???' : average;
         this.agreement = this.calculateAgreementPercentage();
       });
@@ -166,10 +183,6 @@ export class RoomComponent {
       const docRef = await doc(this.firestore, 'rooms', this.room.id);
       await updateDoc(docRef, {issue, show_cards: false});
       await this.clearVotes(this.room);
-      const ref = this.snackbar.open("A new issue is being voted on!", "Open Issue", {
-        duration: 10_000,
-      });
-      ref.onAction().pipe(take(1)).subscribe(() => window.open(this.room.issue, '_blank'));
     }
   }
 
