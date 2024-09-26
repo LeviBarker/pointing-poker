@@ -102,7 +102,6 @@ export class RoomComponent {
           (
             this.users.reduce((acc, user) => {
               if(this.room.owner_uid != user.id && !user.vote) {
-                console.log({room: this.room, user})
                 allVotes = false;
               }
               if (user.vote && user.vote != '🤷') {
