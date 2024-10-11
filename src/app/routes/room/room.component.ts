@@ -13,7 +13,7 @@ import {
 } from '@angular/fire/firestore';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Room} from 'src/app/models/Room';
-import {Auth, onAuthStateChanged, user} from '@angular/fire/auth';
+import {Auth, onAuthStateChanged} from '@angular/fire/auth';
 import {adjectives, animals, uniqueNamesGenerator,} from 'unique-names-generator';
 import * as confetti from 'canvas-confetti';
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -74,12 +74,12 @@ export class RoomComponent {
         if (this.agreement > 98 && this.room.show_cards) {
           confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
             resize: true,
-
           })({
             particleCount: 300,
             spread: 125,
             startVelocity: 70,
-            origin: {y: 1.2}
+            origin: {y: 1.2},
+            colors: ['#FF6600', '#663399']
           });
         }
       });

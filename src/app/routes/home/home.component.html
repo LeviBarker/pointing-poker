@@ -19,7 +19,8 @@
       <mat-icon>{{ showPasscode ? "visibility" : "visibility_off" }}</mat-icon>
     </button>
   </mat-form-field>
-  <button style="margin-right: 8px" [disabled]="creatingRoom" mat-raised-button matSuffix color="primary" (click)="createRoom()">
+  <button style="margin-right: 8px" [disabled]="creatingRoom" mat-raised-button matSuffix color="accent"
+          (click)="createRoom()">
     {{creatingRoom ? 'Creating...' : 'Create'}}
   </button>
  <app-sponsor />
