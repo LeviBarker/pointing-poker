@@ -18,15 +18,16 @@ import {RoomComponent} from './routes/room/room.component';
 import {environment} from '../environments/environment';
 import {getRemoteConfig, provideRemoteConfig} from "@angular/fire/remote-config";
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
-import {provideAuth, getAuth} from '@angular/fire/auth';
-import {provideFirestore, getFirestore} from '@angular/fire/firestore';
+import {getAuth, provideAuth} from '@angular/fire/auth';
+import {getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import { SponsorComponent } from './routes/room/sponsor/sponsor.component';
-import { ShareComponent } from './routes/room/share/share.component';
-import { VoteComponent } from './routes/room/vote/vote.component';
+import {SponsorComponent} from './routes/room/sponsor/sponsor.component';
+import {ShareComponent} from './routes/room/share/share.component';
+import {VoteComponent} from './routes/room/vote/vote.component';
 import {HttpClientModule} from "@angular/common/http";
+import {MarkdownModule} from "ngx-markdown";
 
 @NgModule({
   declarations: [AppComponent, RoomComponent, HomeComponent, SponsorComponent, ShareComponent, VoteComponent],
@@ -50,7 +51,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatBadgeModule,
     MatChipsModule,
     MatTooltipModule,
-    HttpClientModule
+    HttpClientModule,
+    MarkdownModule.forRoot()
   ],
   providers: [
   ],
