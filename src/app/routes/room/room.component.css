@@ -36,6 +36,7 @@
 .quote {
   opacity: 0;
   animation: 800ms ease-in fade-in 400ms forwards;
+  max-width: 760px;
 }
 
 @keyframes fade-in {
