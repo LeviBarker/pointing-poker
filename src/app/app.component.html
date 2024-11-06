@@ -9,6 +9,11 @@
         <button *ngIf="!donatedLoading && !donated" (click)="openLink('https://donate.stripe.com/00gdSSaFc3Ux8Sc5kk?client_reference_id=' + currentUser.uid)" mat-button>
           Donate
         </button>
+        <button matTooltip="AI chatbot" color="accent" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-button
+                color="accent">
+          <mat-icon>smart_toy</mat-icon>
+          <span>Ask AI</span>
+        </button>
         <button mat-icon-button [matMenuTriggerFor]="userMenu">
           <mat-icon fontIcon="account_circle"></mat-icon>
         </button>
@@ -25,7 +30,7 @@
           <mat-icon fontIcon="logout"></mat-icon>
           <span>Sign Out</span>
         </button>
-        <div style=" padding: 16px;">
+        <div>
           <a style="color: #4092ed !important;" href="https://www.privacypolicies.com/live/07a131dd-48aa-40f9-9cd4-859887c8eb1d">Privacy Policy</a>
         </div>
       </mat-menu>
@@ -33,12 +38,12 @@
 </mat-toolbar>
 
 <div *ngIf="userHasLoaded; else loadingUser">
-  <div *ngIf="currentUser; else loginOptions" style="padding: 16px; padding-bottom: 64px; position: relative">
+  <div *ngIf="currentUser; else loginOptions" style="padding-bottom: 64px; position: relative">
     <router-outlet></router-outlet>
-    <button matTooltip="AI chatbot" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-raised-button color="accent" style="border-radius: 99px; position: fixed; right: 32px; bottom: 32px;">
-      <mat-icon>smart_toy</mat-icon>
-      <span>LevAI</span>
-    </button>
+    <!--    <button matTooltip="AI chatbot" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-raised-button color="accent" style="border-radius: 99px; position: fixed; right: 32px; top: 32px;">-->
+    <!--      <mat-icon>smart_toy</mat-icon>-->
+    <!--      <span>LevAI</span>-->
+    <!--    </button>-->
   </div>
 </div>
 </div>
@@ -57,7 +62,7 @@
       Hello! I'm LevAI, is there anything I can help you with?
     </div>
     </div>
-   
+
     <mat-form-field color="accent">
       <mat-label>Message</mat-label>
       <input matInput placeholder="Ex. What is pointing poker?" [(ngModel)]="prompt" (keydown.enter)="submitPrompt()">
@@ -67,7 +72,7 @@
       <mat-hint style="font-size: 10px; width: 100%; text-align: center;">Messages used for model inference do not become part of OpenAI training data, and are not saved or shared outside of OpenAI API requests.</mat-hint>
     </mat-form-field>
   </div>
-  
+
 </mat-menu>
 
 <ng-template #loadingUser>

@@ -28,6 +28,7 @@ import {ShareComponent} from './routes/room/share/share.component';
 import {VoteComponent} from './routes/room/vote/vote.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MarkdownModule} from "ngx-markdown";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [AppComponent, RoomComponent, HomeComponent, SponsorComponent, ShareComponent, VoteComponent],
@@ -52,7 +53,8 @@ import {MarkdownModule} from "ngx-markdown";
     MatChipsModule,
     MatTooltipModule,
     HttpClientModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    MatSidenavModule
   ],
   providers: [
   ],

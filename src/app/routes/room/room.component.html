@@ -1,3 +1,30 @@
+<mat-sidenav-container class="room-container">
+  <mat-sidenav #sidenav mode="over">
+    <div style="padding: 16px;">
+      <h2>Room Options</h2>
+      <div style="display: flex; flex-direction: column;">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Room Name</mat-label>
+          <input matInput
+                 [(ngModel)]="room.name"
+                 [readonly]="currentUser.uid != room.owner_uid"
+                 (keydown.enter)="updateRoom(room)"
+                 (blur)="updateRoom(room)">
+        </mat-form-field>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>Card Options</mat-label>
+          <input matInput
+                 [(ngModel)]="room.card_options"
+                 [readonly]="currentUser.uid != room.owner_uid"
+                 (keydown.enter)="updateRoom(room)"
+                 (blur)="updateRoom(room)">
+        </mat-form-field>
+      </div>
+
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content class="room-content">
 <div class="room" *ngIf="enteredRoomPasscode">
   <div>
     <button mat-button [routerLink]="['/']">Back</button>
@@ -17,6 +44,10 @@
     </mat-form-field>
 
     <div style="padding-top: 8px; display: flex; gap: 8px; align-items: center;">
+      <button mat-raised-button color="accent" (click)="sidenav.toggle()">
+        <mat-icon>plumbing</mat-icon>
+        <span>Options</span>
+      </button>
       <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="accent"
               (click)="toggleShowCards(room)">{{ room.show_cards ? 'Hide' : 'Show' }} Votes
       </button>
@@ -97,3 +128,5 @@
     </div>
   </div>
 </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
