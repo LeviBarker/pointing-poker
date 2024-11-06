@@ -44,7 +44,7 @@
     </mat-form-field>
 
     <div style="padding-top: 8px; display: flex; gap: 8px; align-items: center;">
-      <button *ngIf="currentUser.uid != room.owner_uid" mat-raised-button color="accent" (click)="sidenav.toggle()">
+      <button *ngIf="currentUser.uid == room.owner_uid" mat-raised-button color="accent" (click)="sidenav.toggle()">
         <mat-icon>plumbing</mat-icon>
         <span>Options</span>
       </button>
