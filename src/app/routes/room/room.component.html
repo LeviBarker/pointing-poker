@@ -4,7 +4,7 @@
       <h2>Room Options</h2>
       <div style="display: flex; flex-direction: column;">
         <mat-form-field color="accent" appearance="outline">
-          <mat-label>Room Name</mat-label>
+          <mat-label>Name</mat-label>
           <input matInput
                  [(ngModel)]="room.name"
                  [readonly]="currentUser.uid != room.owner_uid"
@@ -12,7 +12,7 @@
                  (blur)="updateRoom(room)">
         </mat-form-field>
         <mat-form-field color="accent" appearance="outline">
-          <mat-label>Card Options</mat-label>
+          <mat-label>Cards</mat-label>
           <input matInput
                  [(ngModel)]="room.card_options"
                  [readonly]="currentUser.uid != room.owner_uid"

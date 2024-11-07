@@ -37,8 +37,8 @@
     </div>
 </mat-toolbar>
 
-<div *ngIf="userHasLoaded; else loadingUser">
-  <div *ngIf="currentUser; else loginOptions" style="padding-bottom: 64px; position: relative">
+  <div *ngIf="userHasLoaded; else loadingUser" style="height: calc(100vh - 56px); width: 100%">
+    <div *ngIf="currentUser; else loginOptions" style="height: 100%; width: 100%; position: relative">
     <router-outlet></router-outlet>
     <!--    <button matTooltip="AI chatbot" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-raised-button color="accent" style="border-radius: 99px; position: fixed; right: 32px; top: 32px;">-->
     <!--      <mat-icon>smart_toy</mat-icon>-->

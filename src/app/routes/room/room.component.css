@@ -6,11 +6,12 @@
 }
 
 .room-container {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 .room-content {
-  padding: 16px;
+  padding: 16px 16px 96px;
 }
 
 .custom-field
