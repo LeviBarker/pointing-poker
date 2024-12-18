@@ -81,7 +81,8 @@ export class RoomComponent {
             startVelocity: 70,
             origin: {y: 1.2},
             shapes: ['circle'],
-            colors: ['#fff']
+            colors: ['#fff'],
+            flat: true
           });
         }
       });
