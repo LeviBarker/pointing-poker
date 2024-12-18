@@ -79,7 +79,9 @@ export class RoomComponent {
             particleCount: 300,
             spread: 125,
             startVelocity: 70,
-            origin: {y: 1.2}
+            origin: {y: 1.2},
+            shapes: ['circle'],
+            colors: ['#fff']
           });
         }
       });
