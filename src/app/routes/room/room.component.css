@@ -48,6 +48,11 @@
   max-width: 760px;
 }
 
+.initial-hide {
+  opacity: 0;
+  animation: 200ms fade-in 800ms forwards;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

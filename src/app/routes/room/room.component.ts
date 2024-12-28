@@ -13,7 +13,7 @@ import {
 } from '@angular/fire/firestore';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Room} from 'src/app/models/Room';
-import {Auth, onAuthStateChanged, user} from '@angular/fire/auth';
+import {Auth, onAuthStateChanged} from '@angular/fire/auth';
 import {adjectives, animals, uniqueNamesGenerator,} from 'unique-names-generator';
 import * as confetti from 'canvas-confetti';
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -42,6 +42,21 @@ export class RoomComponent {
   highlights$ = this.highlightService.getHighlights().pipe(
     map((response: {highlights: any[]}) => response.highlights[Math.round(Math.random() * 2)])
   )
+
+  pokemon = [
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/1.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/4.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/7.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/25.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/133.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/147.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/83.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/54.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/37.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/16.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/132.gif",
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/151.gif",
+  ]
 
   constructor(
     firestore: Firestore,
