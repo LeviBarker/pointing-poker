@@ -20,6 +20,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {throttle} from "helpful-decorators";
 import {HighlightService} from "@app/services/highlight.service";
 import {map, take} from "rxjs";
+import {User} from "@app/models/User";
 
 @Component({
   selector: 'app-room',
@@ -312,6 +313,10 @@ export class RoomComponent {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  }
+
+  trackFn(index: number, user: User) {
+    return user.id;
   }
 }
 
