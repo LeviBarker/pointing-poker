@@ -3,8 +3,9 @@ import {Auth, GoogleAuthProvider, onAuthStateChanged, signInAnonymously, signInW
 import {RemoteConfigService} from "@app/services/remote-config.service";
 import {FeedbackService} from "@app/services/feedback.service";
 import {CheckoutService} from "@app/services/checkout.service";
-import { PromptService } from './services/prompt.service';
-import { tap } from 'rxjs';
+import {PromptService} from './services/prompt.service';
+import {tap} from 'rxjs';
+import LogRocket from "logrocket";
 
 @Component({
   selector: 'app-root',
@@ -32,9 +33,18 @@ export class AppComponent implements OnInit {
     private checkoutService: CheckoutService,
     private promptService: PromptService
   ) {
+    LogRocket.init('mjbuli/levis-pointing-poker', {
+      console: {
+        isEnabled: true
+      }
+    });
+
     onAuthStateChanged(auth, (user) => {
       this.currentUser = user;
       this.userHasLoaded = true;
+      LogRocket.identify(user?.uid ?? 'unauthenticated', {
+        name: user?.displayName ?? "Anonymous"
+      })
       if(user?.uid && user?.isAnonymous == false) {
         this.checkoutService.getCheckoutSession(user.uid)
           .then((result: any) => {
