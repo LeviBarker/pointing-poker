@@ -29,6 +29,7 @@ import {VoteComponent} from './routes/room/vote/vote.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MarkdownModule} from "ngx-markdown";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [AppComponent, RoomComponent, HomeComponent, SponsorComponent, ShareComponent, VoteComponent],
@@ -54,7 +55,8 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     MatTooltipModule,
     HttpClientModule,
     MarkdownModule.forRoot(),
-    MatSidenavModule
+    MatSidenavModule,
+    MatCheckboxModule
   ],
   providers: [
   ],

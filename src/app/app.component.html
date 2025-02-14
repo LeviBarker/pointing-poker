@@ -85,18 +85,20 @@
   <div style="display: flex; align-items: center; justify-content: center;">
     <div style="max-width: 450px; display: flex; flex-direction: column; align-items: stretch; gap: 8px;">
       <h3>Get Started with Pointing Poker</h3>
-      <button mat-stroked-button (click)="loginAnonymously()">
+      <button [disabled]="!agreedToPolicy" mat-stroked-button (click)="loginAnonymously()">
         🙇‍ Continue Anonymously
       </button>
-      <button mat-stroked-button (click)="loginWithGoogle()">
+      <button [disabled]="!agreedToPolicy" mat-stroked-button (click)="loginWithGoogle()">
         <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
           <img src="assets/Google__G__Logo.svg" style="height: 16px" />
           Continue with Google
         </div>
       </button>
-      <small style="text-align: center; width: 100%;">
-        <a style="color: #4092ed !important;" href="https://www.privacypolicies.com/live/07a131dd-48aa-40f9-9cd4-859887c8eb1d">Privacy Policy</a>
-      </small>
+      <mat-checkbox [checked]="agreedToPolicy" (change)="onAgreeToPolicy($event.checked)">
+        <small>I have read and agree to this <a style="color: #4092ed !important;"
+                                                href="https://www.privacypolicies.com/live/07a131dd-48aa-40f9-9cd4-859887c8eb1d">Privacy
+          Policy</a>.</small>
+      </mat-checkbox>
     </div>
   </div>
 

@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   userHasLoaded: boolean = false;
   donatedLoading = true;
   donated = false;
+  agreedToPolicy = false;
 
   constructor(
     public auth: Auth,
@@ -114,5 +115,9 @@ export class AppComponent implements OnInit {
         tap(() => this.thinking = false)
       )
       .subscribe(response => this.response = response);
+  }
+
+  onAgreeToPolicy(event: boolean) {
+    this.agreedToPolicy = event;
   }
 }
