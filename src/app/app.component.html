@@ -9,7 +9,7 @@
         <button *ngIf="!donatedLoading && !donated" (click)="openLink('https://donate.stripe.com/00gdSSaFc3Ux8Sc5kk?client_reference_id=' + currentUser.uid)" mat-button>
           Donate
         </button>
-        <button disabled matTooltip="AI chatbot" color="accent" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-button
+        <button matTooltip="AI chatbot" color="accent" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-button
                 color="accent">
           <mat-icon>smart_toy</mat-icon>
           <span>Ask AI</span>
