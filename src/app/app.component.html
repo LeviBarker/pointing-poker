@@ -1,12 +1,15 @@
-<div *ngIf="theme" >
-  <mat-toolbar color="primary" style="justify-content: space-between;" [style.background]="theme['backgroundColor']" [style.color]="theme['color']">
+<div *ngIf="theme">
+  <mat-toolbar color="primary" style="justify-content: space-between;" [style.background]="theme['backgroundColor']"
+               [style.color]="theme['color']">
     <div style="display: flex; align-items: center; gap: 12px;">
       <img alt="logo" style="height: 24px;" [src]="logoUrl">
-      <span style="font-weight: bold; font-size: 22px;">{{title}}</span>
+      <span style="font-weight: bold; font-size: 22px;">{{ title }}</span>
     </div>
     <div>
       <div *ngIf="currentUser && userHasLoaded" style="display: flex; align-items: center; gap: 4px;">
-        <button *ngIf="!donatedLoading && !donated" (click)="openLink('https://donate.stripe.com/00gdSSaFc3Ux8Sc5kk?client_reference_id=' + currentUser.uid)" mat-button>
+        <button *ngIf="!donatedLoading && !donated"
+                (click)="openLink('https://donate.stripe.com/00gdSSaFc3Ux8Sc5kk?client_reference_id=' + currentUser.uid)"
+                mat-button>
           Donate
         </button>
         <button matTooltip="AI chatbot" color="accent" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-button
@@ -20,7 +23,8 @@
       </div>
       <mat-menu #userMenu="matMenu">
         <div mat-menu-item class="mat-typography">
-          <span class="mat-caption">Logged in as: {{currentUser?.isAnonymous ? 'Anonymous User' : currentUser?.displayName}}</span>
+          <span
+            class="mat-caption">Logged in as: {{ currentUser?.isAnonymous ? 'Anonymous User' : currentUser?.displayName }}</span>
         </div>
         <button mat-menu-item (click)="leaveFeedback()">
           <mat-icon fontIcon="chat"></mat-icon>
@@ -31,36 +35,38 @@
           <span>Sign Out</span>
         </button>
         <div>
-          <a style="color: #4092ed !important;" href="https://www.privacypolicies.com/live/07a131dd-48aa-40f9-9cd4-859887c8eb1d">Privacy Policy</a>
+          <a style="color: #4092ed !important;"
+             href="https://www.privacypolicies.com/live/07a131dd-48aa-40f9-9cd4-859887c8eb1d">Privacy Policy</a>
         </div>
       </mat-menu>
     </div>
-</mat-toolbar>
+  </mat-toolbar>
 
   <div *ngIf="userHasLoaded; else loadingUser" style="height: calc(100vh - 56px); width: 100%">
     <div *ngIf="currentUser; else loginOptions" style="height: 100%; width: 100%; position: relative">
-    <router-outlet></router-outlet>
-    <!--    <button matTooltip="AI chatbot" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-raised-button color="accent" style="border-radius: 99px; position: fixed; right: 32px; top: 32px;">-->
-    <!--      <mat-icon>smart_toy</mat-icon>-->
-    <!--      <span>LevAI</span>-->
-    <!--    </button>-->
+      <router-outlet></router-outlet>
+      <!--    <button matTooltip="AI chatbot" matTooltipPosition="left" [matMenuTriggerFor]="menu" mat-raised-button color="accent" style="border-radius: 99px; position: fixed; right: 32px; top: 32px;">-->
+      <!--      <mat-icon>smart_toy</mat-icon>-->
+      <!--      <span>LevAI</span>-->
+      <!--    </button>-->
+    </div>
   </div>
-</div>
 </div>
 
 <mat-menu #menu="matMenu" style="border-radius: 16px;">
   <div style="margin: 12px; margin-bottom: 36px;" (click)="$event.stopPropagation()">
     <div style="display: flex; gap: 16px; margin-bottom: 16px;">
       <img src="assets/leviai.svg" style="height: 24px;"/>
-    <div *ngIf="thinking">
-      LevAI is typing...
-    </div>
-    <div *ngIf="!thinking && response" style="background: #0080ff;; border-radius: 0 16px 16px 16px; padding: 12px;">
-      {{response}}
-    </div>
-    <div *ngIf="!thinking && !response" style="background: #0080ff;; border-radius: 0 16px 16px 16px; padding: 12px; #0080ff;">
-      Hello! I'm LevAI, is there anything I can help you with?
-    </div>
+      <div *ngIf="thinking">
+        LevAI is typing...
+      </div>
+      <div *ngIf="!thinking && response" style="background: #0080ff;; border-radius: 0 16px 16px 16px; padding: 12px;">
+        {{ response }}
+      </div>
+      <div *ngIf="!thinking && !response"
+           style="background: #0080ff;; border-radius: 0 16px 16px 16px; padding: 12px; #0080ff;">
+        Hello! I'm LevAI, is there anything I can help you with?
+      </div>
     </div>
 
     <mat-form-field color="accent">
@@ -69,7 +75,9 @@
       <button mat-icon-button matSuffix (click)="submitPrompt()">
         <mat-icon>send</mat-icon>
       </button>
-      <mat-hint style="font-size: 10px; width: 100%; text-align: center;">Messages used for model inference do not become part of OpenAI training data, and are not saved or shared outside of OpenAI API requests.</mat-hint>
+      <mat-hint style="font-size: 10px; width: 100%; text-align: center;">Messages used for model inference do not
+        become part of OpenAI training data, and are not saved or shared outside of OpenAI API requests.
+      </mat-hint>
     </mat-form-field>
   </div>
 
@@ -90,7 +98,7 @@
       </button>
       <button [disabled]="!agreedToPolicy" mat-stroked-button (click)="loginWithGoogle()">
         <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-          <img src="assets/Google__G__Logo.svg" style="height: 16px" />
+          <img src="assets/Google__G__Logo.svg" style="height: 16px"/>
           Continue with Google
         </div>
       </button>

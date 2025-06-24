@@ -11,7 +11,7 @@ import {Auth, onAuthStateChanged, User} from "@angular/fire/auth";
 })
 export class HomeComponent implements OnInit {
   roomTitle: string = '';
-  cardOptions: string = '1,2,3,4,5,6,7,8,9,10';
+  cardOptions: string = '1,2,3,5,8,13,21';
   possibleCardOptions: string[] = [];
   creatingRoom: boolean = false;
   currentUser: User | null = null;

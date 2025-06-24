@@ -33,6 +33,7 @@ export class RoomComponent {
   firestore: Firestore;
   currentUser: any;
   average: string | number = 0;
+  fibonacciAverage: string | number = 0;
   agreement = 0;
   cardOptions: any[] = [];
   issue: string = '';
@@ -134,6 +135,7 @@ export class RoomComponent {
             ref.onAction().pipe(take(1)).subscribe(() => this.toggleShowCards(this.room));
         }
         this.average = isNaN(average) ? '???' : average;
+        this.fibonacciAverage = isNaN(average) ? '???' : this.roundUpFibonacci(average);
         this.agreement = this.calculateAgreementPercentage();
       });
     });
@@ -317,6 +319,26 @@ export class RoomComponent {
 
   trackFn(index: number, user: User) {
     return user.id;
+  }
+
+  roundUpFibonacci(average: number) {
+    if (average < 0) {
+      return 0;
+    }
+    if (average === 0 || average === 1) {
+      return average;
+    }
+  
+    let a = 0;
+    let b = 1;
+    let nextFib = 1;
+  
+    while (nextFib < average) {
+      a = b;
+      b = nextFib;
+      nextFib = a + b;
+    }
+    return nextFib;
   }
 }
 

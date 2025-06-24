@@ -62,7 +62,11 @@
         Clear All Votes
       </button>
       <div *ngIf="room.show_cards; else questionMarks">
-        <span>Average: {{ average }} ({{ average | number:'1.0-0' }})</span>
+        <span>Average: {{ average }}</span>
+      </div>
+      <div>&middot;</div>
+      <div *ngIf="room.show_cards; else questionMarks">
+        <span>Fibonacci: {{ fibonacciAverage }}</span>
       </div>
       <ng-template #questionMarks>
         ???
