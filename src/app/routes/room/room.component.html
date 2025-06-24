@@ -34,6 +34,7 @@
 
     <div class="room" *ngIf="enteredRoomPasscode">
   <div>
+    <img style="position: absolute; bottom: 0; right: 0; opacity: 0; transition-duration: 800ms" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0" src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyeTJ1Y29meWpsa2ZuOGttZDdlanFoeGYxNW8zOWl1YmxzZXUyenNjNyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/Rzr6V9lPpSM8g/source.gif" />
     <button mat-button [routerLink]="['/']">Back</button>
     <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
       <app-share [valueToCopy]="windowHref"></app-share>
