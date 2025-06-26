@@ -120,4 +120,8 @@ export class AppComponent implements OnInit {
   onAgreeToPolicy(event: boolean) {
     this.agreedToPolicy = event;
   }
+
+  open(url: string) {
+    window.open(url);
+  }
 }
