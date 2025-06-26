@@ -7,4 +7,5 @@ export interface Room {
   created_at: number;
   owner_uid: string;
   room_passcode: string | null;
+  easterEggId: number;
 }

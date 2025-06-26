@@ -91,7 +91,6 @@ export class RoomComponent {
         if (this.agreement > 98 && this.room.show_cards) {
           confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
             resize: true,
-
           })({
             particleCount: 300,
             spread: 125,

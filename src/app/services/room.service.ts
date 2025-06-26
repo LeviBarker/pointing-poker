@@ -20,7 +20,8 @@ export class RoomService {
       card_options: cardOptions,
       created_at: new Date().getTime(),
       owner_uid: ownerUid,
-      room_passcode: roomPasscode
+      room_passcode: roomPasscode,
+      easterEggId: Math.floor(Math.random() * (400 - 1 + 1)) + 1
     };
     return await addDoc(this.roomCollection, room);
   }
