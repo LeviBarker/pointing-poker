@@ -45,21 +45,6 @@ export class RoomComponent {
     map((response: {highlights: any[]}) => response.highlights[Math.round(Math.random() * 2)])
   )
 
-  pokemon = [
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/1.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/4.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/7.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/25.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/133.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/147.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/83.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/54.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/37.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/16.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/132.gif",
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/151.gif",
-  ]
-
   constructor(
     firestore: Firestore,
     private route: ActivatedRoute,
@@ -89,14 +74,17 @@ export class RoomComponent {
         this.issue = this.room.issue;
         this.cardOptions = this.room.card_options.split(',');
         if (this.agreement > 98 && this.room.show_cards) {
-          confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
-            resize: true,
-          })({
-            particleCount: 300,
-            spread: 125,
-            startVelocity: 70,
-            origin: {y: 1.2}
-          });
+          setTimeout(() => {
+            confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
+              resize: true,
+            })({
+              particleCount: 300,
+              spread: 125,
+              startVelocity: 70,
+              origin: {y: 1.2, x: 1}
+            });
+          }, 200)
+       
         }
       });
       const userQuery = query(
