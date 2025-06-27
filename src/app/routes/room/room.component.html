@@ -34,8 +34,8 @@
 
     <div class="room" *ngIf="enteredRoomPasscode">
   <div>
-    <div style="position: fixed; bottom: 8px; right: 8px; opacity: 0; transition-duration: 800ms;" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0">
-      <img style="height: 128px;" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + room.easterEggId + '.png'" />
+    <div style="position: fixed; bottom: 8px; right: 16px; opacity: 0; transition-duration: 800ms;" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0">
+      <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/' + room.easterEggId + '.gif'" />
     </div>
     <button mat-button [routerLink]="['/']">Back</button>
     <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
