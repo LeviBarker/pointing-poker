@@ -30,9 +30,10 @@ import {HttpClientModule} from "@angular/common/http";
 import {MarkdownModule} from "ngx-markdown";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { TrophyCaseComponent } from './routes/trophy-case/trophy-case.component';
 
 @NgModule({
-  declarations: [AppComponent, RoomComponent, HomeComponent, SponsorComponent, ShareComponent, VoteComponent],
+  declarations: [AppComponent, RoomComponent, HomeComponent, SponsorComponent, ShareComponent, VoteComponent, TrophyCaseComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

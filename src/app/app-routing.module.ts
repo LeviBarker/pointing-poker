@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RoomComponent } from './routes/room/room.component';
 import { HomeComponent } from './routes/home/home.component';
+import { TrophyCaseComponent } from './routes/trophy-case/trophy-case.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
     path: 'room/:roomId',
     component: RoomComponent,
   },
+  {
+    path: 'trophy-case',
+    component: TrophyCaseComponent
+  }
 ];
 
 @NgModule({

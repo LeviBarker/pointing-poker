@@ -21,6 +21,7 @@ import {throttle} from "helpful-decorators";
 import {HighlightService} from "@app/services/highlight.service";
 import {map, take} from "rxjs";
 import {User} from "@app/models/User";
+import { TrophyService } from '@app/services/trophy.service';
 
 @Component({
   selector: 'app-room',
@@ -51,7 +52,8 @@ export class RoomComponent {
     private router: Router,
     public auth: Auth,
     private snackbar: MatSnackBar,
-    private highlightService: HighlightService
+    private highlightService: HighlightService,
+    private trophyService: TrophyService
   ) {
     route.params.subscribe((params: any) => {
       onAuthStateChanged(this.auth, (user) => {
@@ -78,13 +80,15 @@ export class RoomComponent {
             confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
               resize: true,
             })({
-              particleCount: 300,
-              spread: 125,
-              startVelocity: 70,
-              origin: {y: 1.2, x: 1}
+              particleCount: 100,
+              spread: 75,
+              startVelocity: 35,
+              origin: {y: 1.2, x: 1},
+              shapes: ['star'],
+              colors: ['fff000', 'ffed29']
             });
           }, 200)
-       
+          this.trophyService.addTrophy('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/' + this.room.easterEggId + '.gif')
         }
       });
       const userQuery = query(
