@@ -9,7 +9,7 @@ import { TrophyService } from "@app/services/trophy.service";
   <h2>Trophy Case</h2>
   <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; justify-content: flex-start;">
   <div *ngFor="let trophy of trophies$ | async" style="height: 72px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px">
-    <img [src]="trophy['url']" />
+    <img [src]="trophy['url']" height="56" />
     <small>{{trophy['date']?.seconds | date}}</small>
   </div>
   </div>
