@@ -88,7 +88,9 @@ export class RoomComponent {
               colors: ['fff000', 'ffed29']
             });
           }, 200)
-          this.trophyService.addTrophy('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/' + this.room.easterEggId + '.gif')
+          if(this.room.owner_uid == this.currentUser.uid) {
+            this.trophyService.addTrophy('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/' + this.room.easterEggId + '.gif', this.username)
+          }
         }
       });
       const userQuery = query(

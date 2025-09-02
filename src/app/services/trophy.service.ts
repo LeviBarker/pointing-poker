@@ -14,9 +14,10 @@ export class TrophyService {
     this.trophyCollection = collection(firestore, 'trophy-case');
   }
 
-  async addTrophy(url: string) {
+  async addTrophy(url: string, user: string = 'anonymous') {
     const room: Partial<Trophy> = {
       url,
+      user,
       date: new Date()
     };
     return await addDoc(this.trophyCollection, room);

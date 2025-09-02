@@ -10,7 +10,7 @@ import { TrophyService } from "@app/services/trophy.service";
   <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; justify-content: flex-start;">
   <div *ngFor="let trophy of trophies$ | async" style="height: 72px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px">
     <img [src]="trophy['url']" height="56" />
-    <small>{{trophy['date']?.seconds | date}}</small>
+    <small>{{trophy['date']?.seconds | date}} by {{trophy['user']}}'s team</small>
   </div>
   </div>
   
