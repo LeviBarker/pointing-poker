@@ -8,9 +8,9 @@ import { TrophyService } from "@app/services/trophy.service";
   <button mat-button [routerLink]="['/']">Back</button>
   <h2>Trophy Case</h2>
   <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; justify-content: flex-start;">
-  <div *ngFor="let trophy of trophies$ | async" style="height: 72px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px">
+  <div *ngFor="let trophy of trophies$ | async" style="height: 72px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px; max-width: 156px">
     <img [src]="trophy['url']" height="56" />
-    <small>{{trophy['date']?.seconds | date}} by {{trophy['user']}}'s team</small>
+    <small>Seen {{trophy['date']?.seconds * 1000 | date}} by {{trophy['user']}}'s team</small>
   </div>
   </div>
   
