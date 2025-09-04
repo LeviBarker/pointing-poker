@@ -191,7 +191,7 @@ export class RoomComponent {
   async updateIssue(issue: any) {
     if(issue != this.room.issue){
       const docRef = await doc(this.firestore, 'rooms', this.room.id);
-      await updateDoc(docRef, {issue, show_cards: false});
+      await updateDoc(docRef, {issue, show_cards: false, easterEggId: Math.floor(Math.random() * 898) + 1});
       await this.clearVotes(this.room);
     }
   }
