@@ -80,9 +80,9 @@ export class RoomComponent {
             confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
               resize: true,
             })({
-              particleCount: 100,
-              spread: 75,
-              startVelocity: 35,
+              particleCount: 25,
+              spread: 50,
+              startVelocity: 30,
               origin: {y: 1.2, x: 1},
               shapes: ['star'],
               colors: ['fff000', 'ffed29']

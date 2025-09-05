@@ -62,3 +62,16 @@
     opacity: 100%;
   }
 }
+
+.bounce {
+  animation: bounce 800ms forwards 600ms;
+}
+
+@keyframes bounce {
+  from, 50%, to {
+    transform: translateY(0);
+  }
+  25%, 75% {
+    transform: translateY(-10px);
+  }
+}
