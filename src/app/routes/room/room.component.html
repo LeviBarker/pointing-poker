@@ -38,7 +38,11 @@
       <div style="position: absolute; bottom: 2px; width: 100%; display: flex; justify-content: center; align-items: flex-end;">
         <img style="opacity: 0" width="24px" [ngClass]="{'bounce': agreement > 98 && room.show_cards}" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0" src="assets/pokeball.png" />
       </div>
-      <img style="opacity: 1; transition-duration: 600ms; transform-origin: bottom center;" [style.filter]="agreement > 98 && room.show_cards ? 'brightness(0) invert(1)' : ''" [style.transform]="agreement > 98 && room.show_cards ? 'scale(0)' : ''" [style.opacity]="agreement > 98 && room.show_cards ? 0 : 1" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/' + room.easterEggId + '.gif'" />
+        <!--      <img style="opacity: 1; transition-duration: 600ms; transform-origin: bottom center;" [style.filter]="agreement > 98 && room.show_cards ? 'brightness(0) invert(1)' : ''" [style.transform]="agreement > 98 && room.show_cards ? 'scale(0)' : ''" [style.opacity]="agreement > 98 && room.show_cards ? 0 : 1" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/' + room.easterEggId + '.gif'" />-->
+        <img class="hovering" style="opacity: 1; transition-duration: 600ms; transform-origin: bottom center;"
+             [style.filter]="agreement > 98 && room.show_cards ? 'brightness(0) invert(1)' : ''"
+             [style.transform]="agreement > 98 && room.show_cards ? 'scale(0)' : ''"
+             [style.opacity]="agreement > 98 && room.show_cards ? 0 : 1" src="assets/ghost.png"/>
     </div>
     <button mat-button [routerLink]="['/']">Back</button>
     <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
