@@ -34,7 +34,11 @@
 
     <div class="room" *ngIf="enteredRoomPasscode">
   <div>
+
     <div style="position: fixed; bottom: 8px; right: 16px; transition-duration: 800ms;">
+      <span [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0"
+            style="transition-duration: 600ms; position: absolute; top: 0; left: -100%;">It's {{ PokemonMap[room.easterEggId] }}
+        !</span>
       <!--      <div style="position: absolute; bottom: 2px; width: 100%; display: flex; justify-content: center; align-items: flex-end;">-->
       <!--        <img style="opacity: 0" width="24px" [ngClass]="{'bounce': agreement > 98 && room.show_cards}" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0" src="assets/pokeball.png" />-->
       <!--      </div>-->

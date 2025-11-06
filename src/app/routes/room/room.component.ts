@@ -21,7 +21,8 @@ import {throttle} from "helpful-decorators";
 import {HighlightService} from "@app/services/highlight.service";
 import {map, take} from "rxjs";
 import {User} from "@app/models/User";
-import { TrophyService } from '@app/services/trophy.service';
+import {TrophyService} from '@app/services/trophy.service';
+import {pokemonMap} from "@app/routes/room/pokemon";
 
 @Component({
   selector: 'app-room',
@@ -45,6 +46,8 @@ export class RoomComponent {
   highlights$ = this.highlightService.getHighlights().pipe(
     map((response: {highlights: any[]}) => response.highlights[Math.round(Math.random() * 2)])
   )
+
+  PokemonMap = pokemonMap;
 
   constructor(
     firestore: Firestore,
@@ -191,7 +194,7 @@ export class RoomComponent {
   async updateIssue(issue: any) {
     if(issue != this.room.issue){
       const docRef = await doc(this.firestore, 'rooms', this.room.id);
-      await updateDoc(docRef, {issue, show_cards: false, easterEggId: Math.floor(Math.random() * 898) + 1});
+      await updateDoc(docRef, {issue, show_cards: false, easterEggId: Math.floor(Math.random() * 809) + 1});
       await this.clearVotes(this.room);
     }
   }
@@ -321,11 +324,11 @@ export class RoomComponent {
     if (average === 0 || average === 1) {
       return average;
     }
-  
+
     let a = 0;
     let b = 1;
     let nextFib = 1;
-  
+
     while (nextFib < average) {
       a = b;
       b = nextFib;
