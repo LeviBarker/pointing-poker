@@ -35,10 +35,16 @@
     <div class="room" *ngIf="enteredRoomPasscode">
   <div>
     <div style="position: fixed; bottom: 8px; right: 16px; transition-duration: 800ms;">
-      <div style="position: absolute; bottom: 2px; width: 100%; display: flex; justify-content: center; align-items: flex-end;">
-        <img style="opacity: 0" width="24px" [ngClass]="{'bounce': agreement > 98 && room.show_cards}" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0" src="assets/pokeball.png" />
+      <!--      <div style="position: absolute; bottom: 2px; width: 100%; display: flex; justify-content: center; align-items: flex-end;">-->
+      <!--        <img style="opacity: 0" width="24px" [ngClass]="{'bounce': agreement > 98 && room.show_cards}" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0" src="assets/pokeball.png" />-->
+      <!--      </div>-->
+      <img style="opacity: 1; transition-duration: 600ms; transform-origin: bottom center;"
+           [style.filter]="agreement > 98 && room.show_cards ? '' : 'brightness(0) invert(1)'"
+           [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/' + room.easterEggId + '.gif'"/>
+      <div [style.opacity]="agreement > 98 && room.show_cards ? 0 : 1"
+           style="transition-duration: 600ms; position: absolute; width: 100%; display: flex; justify-content: center; bottom: 0;">
+        <img src="assets/who_pokemon.png" style="width: 64px"/>
       </div>
-      <img style="opacity: 1; transition-duration: 600ms; transform-origin: bottom center;" [style.filter]="agreement > 98 && room.show_cards ? 'brightness(0) invert(1)' : ''" [style.transform]="agreement > 98 && room.show_cards ? 'scale(0)' : ''" [style.opacity]="agreement > 98 && room.show_cards ? 0 : 1" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/' + room.easterEggId + '.gif'" />
     </div>
     <button mat-button [routerLink]="['/']">Back</button>
     <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
