@@ -42,7 +42,7 @@
           <mat-icon fontIcon="logout"></mat-icon>
           <span>Sign Out</span>
         </button>
-        <div>
+        <div style="padding: 16px">
           <a style="color: #4092ed !important;"
              href="https://www.privacypolicies.com/live/07a131dd-48aa-40f9-9cd4-859887c8eb1d">Privacy Policy</a>
         </div>
@@ -79,7 +79,8 @@
 
     <mat-form-field color="accent">
       <mat-label>Message</mat-label>
-      <input matInput placeholder="Ex. What is pointing poker?" [(ngModel)]="prompt" (keydown.enter)="submitPrompt()">
+      <input [disabled]="thinking" matInput placeholder="Ex. What is pointing poker?" [(ngModel)]="prompt"
+             (keydown.enter)="submitPrompt()">
       <button mat-icon-button matSuffix (click)="submitPrompt()">
         <mat-icon>send</mat-icon>
       </button>

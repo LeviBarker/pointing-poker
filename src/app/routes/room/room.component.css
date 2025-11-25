@@ -75,3 +75,23 @@
     transform: translateY(-10px);
   }
 }
+
+.rotateAndScale {
+  transform: scale(0);
+  animation: rotateAndScale 800ms forwards 800ms;
+}
+
+@keyframes rotateAndScale {
+  from {
+    transform: rotate(360deg) scale(0)
+  }
+  75% {
+    transform: rotate(-10deg) scale(1.2)
+  }
+  90% {
+    transform: rotate(10deg) scale(0.8)
+  }
+  to {
+    transform: rotate(0deg) scale(1)
+  }
+}
