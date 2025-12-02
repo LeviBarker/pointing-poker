@@ -5,19 +5,13 @@
       <div style="display: flex; flex-direction: column;">
         <mat-form-field color="accent" appearance="outline">
           <mat-label>Name</mat-label>
-          <input matInput
-                 [(ngModel)]="room.name"
-                 [readonly]="currentUser.uid != room.owner_uid"
-                 (keydown.enter)="updateRoom(room)"
-                 (blur)="updateRoom(room)">
+          <input matInput [(ngModel)]="room.name" [readonly]="currentUser.uid != room.owner_uid"
+            (keydown.enter)="updateRoom(room)" (blur)="updateRoom(room)">
         </mat-form-field>
         <mat-form-field color="accent" appearance="outline">
           <mat-label>Cards</mat-label>
-          <input matInput
-                 [(ngModel)]="room.card_options"
-                 [readonly]="currentUser.uid != room.owner_uid"
-                 (keydown.enter)="updateRoom(room)"
-                 (blur)="updateRoom(room)">
+          <input matInput [(ngModel)]="room.card_options" [readonly]="currentUser.uid != room.owner_uid"
+            (keydown.enter)="updateRoom(room)" (blur)="updateRoom(room)">
         </mat-form-field>
       </div>
 
@@ -25,7 +19,7 @@
 
   </mat-sidenav>
   <mat-sidenav-content class="room-content">
-<!--     <div
+    <!--     <div
       style="position: fixed; bottom: 0; left: 0; width: 100%; display: flex; flex-direction: row-reverse; justify-content: end; padding: 0 16px; box-sizing: border-box;">
       <img *ngFor="let user of users; let i = index; trackBy: trackFn" [src]="pokemon[i]"
            style="width: 48px; object-fit: contain; object-position: bottom;" alt="" class="initial-hide"
@@ -33,128 +27,136 @@
     </div> -->
 
     <div class="room" *ngIf="enteredRoomPasscode">
-  <div>
+      <div>
 
-    <div style="position: fixed; bottom: 8px; right: 16px; transition-duration: 800ms;">
-      <span [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0"
-            style="transition-duration: 600ms; position: absolute; top: 0; left: -100%; background-color: white; color: #222; font-family: Monospace, sans-serif; padding: 2px 6px; border-radius: 4px;">It's {{ PokemonMap[room.easterEggId] }}
-        !</span>
-      <!--      <div style="position: absolute; bottom: 2px; width: 100%; display: flex; justify-content: center; align-items: flex-end;">-->
-      <!--        <img style="opacity: 0" width="24px" [ngClass]="{'bounce': agreement > 98 && room.show_cards}" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0" src="assets/pokeball.png" />-->
-      <!--      </div>-->
-      <img style="max-width: 128px; opacity: 1; transition-duration: 600ms; transform-origin: bottom center;"
-           [style.filter]="agreement > 98 && room.show_cards ? '' : 'brightness(0) invert(1)'"
-           [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + room.easterEggId + '.png'"/>
-      <div [style.opacity]="agreement > 98 && room.show_cards ? 0 : 1"
-           style="position: absolute; width: 100%; display: flex; justify-content: center; bottom: 0">
-        <img class="rotateAndScale" src="assets/who_pokemon.png" style="width: 64px"/>
-      </div>
-    </div>
-    <button mat-button [routerLink]="['/']">Back</button>
-    <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
-      <app-share [valueToCopy]="windowHref"></app-share>
-      <span style="font-weight: bold;">Room:</span>
-      <span>{{ room.name }}</span>
-    </div>
-    <mat-form-field style="width: 100%" color="accent" appearance="outline" class="example-full-width">
-      <mat-label>Issue</mat-label>
-      <input matInput [(ngModel)]="issue" [readonly]="currentUser.uid != room.owner_uid"
-             (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
-      <button style="margin-right: 8px;" [matTooltip]="getLastPartOfUrlPath(issue)" *ngIf="issue" (click)="open(issue)"
-              mat-button matSuffix>
-        <mat-icon>open_in_new</mat-icon>&nbsp;Open Issue
-      </button>
-    </mat-form-field>
+        <div style="position: fixed; bottom: 8px; right: 16px; transition-duration: 800ms;">
+          <span [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0"
+            style="transition-duration: 600ms; position: absolute; top: 0; left: -100%; background-color: white; color: #222; font-family: Monospace, sans-serif; padding: 2px 6px; border-radius: 4px;">It's
+            {{ PokemonMap[room.easterEggId] }}!
+          </span>
+          <!--      <div style="position: absolute; bottom: 2px; width: 100%; display: flex; justify-content: center; align-items: flex-end;">-->
+          <!--        <img style="opacity: 0" width="24px" [ngClass]="{'bounce': agreement > 98 && room.show_cards}" [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0" src="assets/pokeball.png" />-->
+          <!--      </div>-->
+          <img style="max-width: 128px; opacity: 1; transition-duration: 600ms; transform-origin: bottom center;"
+            [style.filter]="agreement > 98 && room.show_cards ? '' : 'brightness(0) invert(1)'"
+            [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + room.easterEggId + '.png'" />
+          <div [style.opacity]="agreement > 98 && room.show_cards ? 0 : 1"
+            style="position: absolute; width: 100%; display: flex; justify-content: center; bottom: 0">
+            <img class="rotateAndScale" src="assets/who_pokemon.png" style="width: 64px" />
+          </div>
+        </div>
+        <button mat-button [routerLink]="['/']">Back</button>
+        <div style="display: flex; align-items: center; gap: 8px; padding: 4px 0;">
+          <app-share [valueToCopy]="windowHref"></app-share>
+          <span style="font-weight: bold;">Room:</span>
+          <span>{{ room.name }}</span>
+        </div>
+        <mat-form-field style="width: 100%" color="accent" appearance="outline" class="example-full-width">
+          <mat-label>Issue</mat-label>
+          <input matInput [(ngModel)]="issue" [readonly]="currentUser.uid != room.owner_uid"
+            (keydown.enter)="updateIssue(issue)" (blur)="updateIssue(issue)">
+          <button style="margin-right: 8px;" [matTooltip]="getLastPartOfUrlPath(issue)" *ngIf="issue"
+            (click)="open(issue)" mat-button matSuffix>
+            <mat-icon>open_in_new</mat-icon>&nbsp;Open Issue
+          </button>
+        </mat-form-field>
 
-    <div style="padding-top: 8px; display: flex; gap: 8px; align-items: center;">
-      <button *ngIf="currentUser.uid == room.owner_uid" mat-raised-button color="accent" (click)="sidenav.toggle()">
-        <mat-icon>plumbing</mat-icon>
-        <span>Options</span>
-      </button>
-      <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="accent"
-              (click)="toggleShowCards(room)">{{ room.show_cards ? 'Hide' : 'Show' }} Votes
-      </button>
-      <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="warn" (click)="clearVotes(room)">
-        Clear All Votes
-      </button>
-      <div *ngIf="room.show_cards; else questionMarks">
-        <span>Average: {{ average }}</span>
-      </div>
-      <div>&middot;</div>
-      <div *ngIf="room.show_cards; else questionMarks">
-        <span>Fibonacci: {{ fibonacciAverage }}</span>
-      </div>
-      <ng-template #questionMarks>
-        ???
-      </ng-template>
-      <div>&middot;</div>
-      <div>Agreement: {{ room.show_cards ? agreement + '%' + (agreement < 45 ? " 💩 " : "") : '???' }}</div>
-    </div>
-    <div>
-      <div class="section">
-        <button mat-raised-button color="warn" (click)="vote(room.id, null)">
-          Clear My Vote
-        </button>
-        <button mat-raised-button (click)="vote(room.id, '🤷')">
-          <span style="font-size: 16px;">🤷</span>
-        </button>
-        <button mat-raised-button *ngFor="let card of cardOptions" (click)="vote(room.id, card)">
-          <span style="font-size: 16px;">{{ card }}</span>
-        </button>&nbsp;
-      </div>
-    </div>
-  </div>
+        <div style="padding-top: 8px; display: flex; gap: 8px; align-items: center;">
+          <button *ngIf="currentUser.uid == room.owner_uid" mat-raised-button color="accent" (click)="sidenav.toggle()">
+            <mat-icon>plumbing</mat-icon>
+            <span>Options</span>
+          </button>
+          <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="accent"
+            (click)="toggleShowCards(room)">{{ room.show_cards ? 'Hide' : 'Show' }} Votes
+          </button>
+          <button mat-stroked-button [disabled]="currentUser.uid != room.owner_uid" color="warn"
+            (click)="clearVotes(room)">
+            Clear All Votes
+          </button>
+          <div *ngIf="room.show_cards; else questionMarks">
+            <span>Average: {{ average }}</span>
+          </div>
+          <div>&middot;</div>
+          <div *ngIf="room.show_cards; else questionMarks">
+            <span>Fibonacci: {{ fibonacciAverage }}</span>
+          </div>
+          <ng-template #questionMarks>
+            ???
+          </ng-template>
+          <div>&middot;</div>
+          <div>Agreement: {{ room.show_cards ? agreement + '%' + (agreement < 45 ? " 💩 " : "" ) : '???' }}</div>
+          </div>
+          <div>
+            <div class="section">
+              <button mat-raised-button color="warn" (click)="vote(room.id, null)">
+                Clear My Vote
+              </button>
+              <button mat-raised-button (click)="vote(room.id, '🤷')">
+                <span style="font-size: 16px;">🤷</span>
+              </button>
+              <button mat-raised-button *ngFor="let card of cardOptions" (click)="vote(room.id, card)">
+                <span style="font-size: 16px;">{{ card }}</span>
+              </button>&nbsp;
+            </div>
+          </div>
+        </div>
 
-  <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-    <div *ngFor="let user of users; trackBy: identify" style="display: flex; align-items: center; padding-right: 12px;"
-         class="user-container" [class]="user.id === currentUser.uid ? 'current-user-container' : ''">
-      <img
-        [matMenuTriggerFor]="(room.owner_uid == currentUser.uid || currentUser.uid === 'HMr1YMpQvzL9PhOfrBUVxHHwWgz2') && user.id != currentUser.uid ? userMenu : null"
-        [class]="currentUser.uid == user.id ? 'current-user' : 'other-user'"
-        style="cursor: pointer; border-radius: 99px; width: 42px; height: 42px; margin-right: 8px; transform: translateY(-10px); margin-left: 8px;"
-        alt="user image" matPrefix [src]="user.photoURL"/>
-      <mat-menu #userMenu="matMenu">
-        <button (click)="makeOwner(user.id)" mat-menu-item>
-          <mat-icon>star</mat-icon>
-          Transfer Ownership
-        </button>
-        <button (click)="kick(user.id)" mat-menu-item>
-          <mat-icon>person_remove</mat-icon>
-          Kick
-        </button>
-      </mat-menu>
-      <mat-form-field *ngIf="user.id === currentUser.uid; else userText" color="accent" appearance="outline"
-                      class="example-full-width custom-field">
-        <mat-label>Name <span *ngIf="!user.locked && user.id == room.owner_uid"
-                              style="color: #69f0ae;">(Room Owner)</span></mat-label>
-        <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="username"
-               (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
-        <mat-icon matSuffix *ngIf="user.locked" color="warn">lock</mat-icon>
-        <mat-icon matSuffix *ngIf="!user.locked && user.id != room.owner_uid"></mat-icon>
-      </mat-form-field>
-      <ng-template #userText>
-               <span style="margin-right: 8px; margin-left: 8px; margin-top: 0; text-overflow: ellipsis;
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <div *ngFor="let user of users; trackBy: identify"
+            style="display: flex; align-items: center; padding-right: 12px;" class="user-container"
+            [class]="user.id === currentUser.uid ? 'current-user-container' : ''">
+            <img
+              [matMenuTriggerFor]="(room.owner_uid == currentUser.uid || currentUser.uid === 'HMr1YMpQvzL9PhOfrBUVxHHwWgz2') && user.id != currentUser.uid ? userMenu : null"
+              [class]="currentUser.uid == user.id ? 'current-user' : 'other-user'"
+              style="cursor: pointer; border-radius: 99px; width: 42px; height: 42px; margin-right: 8px; transform: translateY(-10px); margin-left: 8px;"
+              alt="user image" matPrefix [src]="user.photoURL" />
+            <mat-menu #userMenu="matMenu">
+              <button (click)="makeOwner(user.id)" mat-menu-item>
+                <mat-icon>star</mat-icon>
+                Transfer Ownership
+              </button>
+              <button (click)="kick(user.id)" mat-menu-item>
+                <mat-icon>person_remove</mat-icon>
+                Kick
+              </button>
+            </mat-menu>
+            <mat-form-field *ngIf="user.id === currentUser.uid; else userText" color="accent" appearance="outline"
+              class="example-full-width custom-field">
+              <mat-label>Name <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae;">(Room
+                  Owner)</span></mat-label>
+              <input matInput style="height: 24px;" [readonly]="currentUser.uid !== user.id" [(ngModel)]="username"
+                (keydown.enter)="updateUser(user)" (blur)="updateUser(user)">
+              <mat-icon matSuffix *ngIf="user.locked" color="warn">lock</mat-icon>
+              <mat-icon matSuffix *ngIf="!user.locked && user.id != room.owner_uid"></mat-icon>
+            </mat-form-field>
+            <ng-template #userText>
+              <span
+                style="margin-right: 8px; margin-left: 8px; margin-top: 0; text-overflow: ellipsis;
     white-space: nowrap; max-width: 232px; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start;">
-                 <span>{{ user.name }}</span>
-                 <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae; font-size: 10px;">Room Owner</span>
-                 <span *ngIf="user.role" style="color: #69f0ae; font-size: 10px;">{{user.role}}</span>
-               </span>
-      </ng-template>
+                <span>{{ user.name }}</span>
+                <span *ngIf="!user.locked && user.id == room.owner_uid" style="color: #69f0ae; font-size: 10px;">Room
+                  Owner</span>
+                <span *ngIf="user.role" style="color: #69f0ae; font-size: 10px;">{{user.role}}</span>
+              </span>
+            </ng-template>
 
-      <app-vote [vote]="user.vote" [isCurrentUser]="currentUser.uid == user.id" [showVotes]="room.show_cards" />
-    </div>
-  </div>
-<!--  <app-sponsor/>-->
-  <div *ngIf="highlights$ | async as highlight" class="quote" style="margin-top: 32px; display: flex; gap: 16px; border-radius: 16px; padding: 8px;">
-    <img [src]="highlight.image_url"
-         style="transform: rotate(-5deg); height: 96px; border-radius: 8px; margin-top: 14px;">
-    <div>
-      <markdown style="margin-top: 0;" [data]="highlight.text"></markdown>
-      <span>- {{highlight.author}}, {{highlight.title}}</span>
-      <br/><br/><a target="_blank" href="https://lbarker.notion.site/0b1245db10e64871a7948a3d88d37d5d?v=665262f8c0a6485991a0ef288a8accf7" style="color:#0080FF">See more highlights </a>
-    </div>
-  </div>
-      <div style="height: 79px"></div>
-</div>
+            <app-vote [vote]="user.vote" [isCurrentUser]="currentUser.uid == user.id" [showVotes]="room.show_cards" />
+          </div>
+        </div>
+        <!--  <app-sponsor/>-->
+        <div *ngIf="highlights$ | async as highlight" class="quote"
+          style="margin-top: 32px; display: flex; gap: 16px; border-radius: 16px; padding: 8px;">
+          <img [src]="highlight.image_url"
+            style="transform: rotate(-5deg); height: 96px; border-radius: 8px; margin-top: 14px;">
+          <div>
+            <markdown style="margin-top: 0;" [data]="highlight.text"></markdown>
+            <span>- {{highlight.author}}, {{highlight.title}}</span>
+            <br /><br /><a target="_blank"
+              href="https://lbarker.notion.site/0b1245db10e64871a7948a3d88d37d5d?v=665262f8c0a6485991a0ef288a8accf7"
+              style="color:#0080FF">See more highlights </a>
+          </div>
+        </div>
+        <div style="height: 79px"></div>
+      </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
