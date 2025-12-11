@@ -81,7 +81,7 @@
       <mat-label>Message</mat-label>
       <input [disabled]="thinking" matInput placeholder="Ex. What is pointing poker?" [(ngModel)]="prompt"
              (keydown.enter)="submitPrompt()">
-      <button mat-icon-button matSuffix (click)="submitPrompt()">
+      <button [disabled]="thinking" mat-icon-button matSuffix (click)="submitPrompt()">
         <mat-icon>send</mat-icon>
       </button>
       <mat-hint style="font-size: 10px; width: 100%; text-align: center;">Messages used for model inference do not

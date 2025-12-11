@@ -29,7 +29,7 @@
     <div class="room" *ngIf="enteredRoomPasscode">
       <div>
 
-        <div style="position: fixed; bottom: 8px; right: 16px; transition-duration: 800ms;">
+        <div style="position: fixed; bottom: 8px; right: 16px; transition-duration: 800ms; min-width: 156px">
           <span [style.opacity]="agreement > 98 && room.show_cards ? 1 : 0"
             style="transition-duration: 600ms; position: absolute; top: 0; left: -100%; background-color: white; color: #222; font-family: Monospace, sans-serif; padding: 2px 6px; border-radius: 4px;">It's
             {{ PokemonMap[room.easterEggId] }}!
